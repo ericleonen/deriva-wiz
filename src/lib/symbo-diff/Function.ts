@@ -16,19 +16,16 @@ export default abstract class Function {
     public abstract get derivative(): Function; // TODO: Decide if memoization is needed
 
     /**
-     * Returns the a simple version of this Function.
+     * Returns a simplified version of this Function.
      */
-    public abstract get simplified(): Function; // TODO: Decide if memoization is needed
+    public get simplified(): Function { // TODO: Decide if memoization is needed
+        return this;
+    }
 
     /**
      * Returns this function as a Latex expression
      */
     public abstract get latex(): string; // TODO: Decide if memoization is needed
-
-    /**
-     * Returns an equivalent copy of this Function.
-     */
-    public abstract get copy(): Function
 
     /**
      * Returns true if this Function is equivalent to the given Function, false otherwise.
