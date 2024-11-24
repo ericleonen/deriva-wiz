@@ -3,6 +3,7 @@ import Multiplication from "./Multiplication";
 import Subtraction from "./Subtraction";
 import Integer from "../../operands/Integer";
 import Exponentiation from "../exponential/Exponentiation";
+import Negation from "./Negation";
 
 /**
  * A binary division operator.
@@ -35,6 +36,14 @@ export default class Division extends Function {
 
     public get derivative(): Function {
         if (this.isConstant) return new Integer(0);
+        else if (this.top.isConstant) {
+            return new Division(
+                new Negation(
+                    new Multiplication(this.top, this.bottom.derivative)
+                ),
+                new Exponentiation(this.bottom, new Integer(2))
+            )
+        }
 
         return new Division(
             new Subtraction(
