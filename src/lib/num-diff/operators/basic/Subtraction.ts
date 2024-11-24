@@ -1,23 +1,18 @@
-import Function from "../Function";
+import Function from "../../Function";
+import Integer from "../../operands/Integer";
 
 /**
- * An addition expression.
+ * A binary subtraction operator.
  */
-export default class Addition extends Function {
-    /**
-     * The left addend of this addition expression.
-     */
+export default class Subtraction extends Function {
     private readonly left: Function;
-    /**
-     * The right addend of this addition expression.
-     */
     private readonly right: Function;
 
     /**
-     * Creates an addition expression with the given addends.
+     * Initializes an subtraction operator acting on the given minuend and subtrahend.
      */
     public constructor(left: Function, right: Function) {
-        super();
+        super(left, right);
 
         this.left = left;
         this.right = right;
@@ -29,17 +24,19 @@ export default class Addition extends Function {
         if (evalLeft !== undefined) {
             const evalRight = this.right.eval(x);
 
-            if (evalRight !== undefined) return evalLeft + evalRight;
+            if (evalRight !== undefined) return evalLeft - evalRight;
         }
 
         return undefined;
     }
 
     public get derivative(): Function {
-        return new Addition(this.left.derivative, this.right.derivative);
+        if (this.isConstant) return new Integer(0);
+
+        return new Subtraction(this.left.derivative, this.right.derivative);
     }
 
     public get latex(): string {
-        return `${this.left.latex}+${this.right.latex}`
+        return `${this.left.latex}-${this.right.latex}`
     }
 }

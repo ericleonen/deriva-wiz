@@ -1,8 +1,20 @@
+import Constant from "./operands/Constant";
+
 /**
  * A differentiable univariate function. 
  */
 export default abstract class Function {
+    readonly isConstant: boolean;
     // TODO: Decide a way to store the domain of a function
+
+    /**
+     * Initializes a function with the given operands.
+     */
+    public constructor(...operands: Function[]) {
+        this.isConstant = operands.every(operand => (
+            operand instanceof Constant || operand.isConstant
+        ));
+    }
 
     /**
      * Evaluates this function at the given number and returns the output. Returns undefined if the
