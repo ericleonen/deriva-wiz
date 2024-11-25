@@ -55,10 +55,11 @@ export default class Exponentiation extends Function {
             (this.exponent.isConstant && this.exponent.eval(0) === 0)
         ) return new Integer(0);
 
-        if (this.exponent.isConstant) { // power rule case
+        if (this.exponent.isConstant && this.base) { // power rule case
             return new Multiplication(
                 this.exponent,
                 new Exponentiation(
+                    this.base,
                     new Subtraction(this.exponent, new Integer(1))
                 )
             )
@@ -100,6 +101,6 @@ export default class Exponentiation extends Function {
             }
         }
 
-        return `(${this.base.latex})^{${this.exponent.latex}}`;
+        return `\\left(${this.base.latex}\\right)^{${this.exponent.latex}}`;
     }
 }
