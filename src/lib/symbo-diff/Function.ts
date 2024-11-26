@@ -1,3 +1,4 @@
+import { IS_EQUAL_NUM_SAMPLES, IS_EQUAL_TOLERANCE, IS_EQUAL_UPPER_BOUND } from "./config";
 import Constant from "./operands/Constant";
 
 /**
@@ -43,7 +44,19 @@ export default abstract class Function {
      * Returns true if this Function is equivalent to the given Function, false otherwise.
      */
     public equals(other: Function): boolean {
-        // TODO: Implement a satisfactory equality check
-        return false;
+        for (let i = 0; i < IS_EQUAL_NUM_SAMPLES; i++) {
+            const x = Math.random() * 2*IS_EQUAL_UPPER_BOUND - IS_EQUAL_UPPER_BOUND;
+
+            const thisY = this.eval(x);
+            const otherY = other.eval(x);
+
+            if (thisY !== undefined && otherY !== undefined) {
+                if (Math.abs(thisY - otherY) > IS_EQUAL_TOLERANCE) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }
