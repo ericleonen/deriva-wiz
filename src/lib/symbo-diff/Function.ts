@@ -5,7 +5,7 @@ import Constant from "./operands/Constant";
  * A differentiable univariate function. 
  */
 export default abstract class Function {
-    readonly isConstant: boolean;
+    public isConstant: boolean;
     // TODO: Decide a way to store the domain of a function
 
     /**

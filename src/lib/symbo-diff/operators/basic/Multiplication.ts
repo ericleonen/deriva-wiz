@@ -53,6 +53,10 @@ export default class Multiplication extends Function {
     }
 
     public get latex(): string {
-        return `${this.left}${this.right}`;
+        if (this.left instanceof Integer && this.right instanceof Integer) {
+            return `${this.left.latex}\\cdot${this.right.latex}`;
+        }
+
+        return `${this.left.latex}${this.right.latex}`;
     }
 }

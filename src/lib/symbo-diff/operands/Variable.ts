@@ -5,6 +5,13 @@ import Function from "../Function";
  * A variable "x".
  */
 export default class Variable extends Function {
+    
+    public constructor() {
+        super();
+
+        this.isConstant = false;
+    }
+
     public eval(x: number): number {
         return x;
     }
