@@ -52,6 +52,7 @@ export default abstract class Function {
 
             if (thisY !== undefined && otherY !== undefined) {
                 if (Math.abs(thisY - otherY) > IS_EQUAL_TOLERANCE) {
+                    console.log(`x=${x}, diff=${Math.abs(thisY - otherY)}`)
                     return false;
                 }
             }

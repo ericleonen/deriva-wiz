@@ -61,7 +61,8 @@ export default class Exponentiation extends Function {
                 new Exponentiation(
                     this.base,
                     new Subtraction(this.exponent, new Integer(1))
-                )
+                ),
+                this.base.derivative
             )
         } else if (!this.base) { // base e case
             return new Multiplication(this, this.exponent.derivative);

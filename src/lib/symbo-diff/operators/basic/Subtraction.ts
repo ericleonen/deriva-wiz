@@ -1,5 +1,6 @@
 import Function from "../../Function";
 import Integer from "../../operands/Integer";
+import Addition from "./Addition";
 
 /**
  * A binary subtraction operator.
@@ -37,6 +38,12 @@ export default class Subtraction extends Function {
     }
 
     public get latex(): string {
-        return `${this.left.latex}-${this.right.latex}`
+        let rightLatex = this.right.latex;
+
+        if (this.right instanceof Addition || this.right instanceof Subtraction) {
+            rightLatex = `\\left(${rightLatex}\\right)`;
+        }
+
+        return `${this.left.latex}-${rightLatex}`
     }
 }

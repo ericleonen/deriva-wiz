@@ -102,7 +102,6 @@ function splitIntoSymbols(latex: string): string[] {
                 if (openCount < 0) throw new Error(`unmatched ${closeSymbol} at index ${index}`);
 
                 if (openCount === 0) groupIndexInterval[1] = index + 1
-                index += closeSymbol.length - 1;
 
                 return true;
             }
@@ -120,6 +119,8 @@ function splitIntoSymbols(latex: string): string[] {
             ];
         }
     }
+
+    console.log(openCount, groupIndexInterval)
 
     throw new Error(`invalid LaTeX: ${latex}`);
 }

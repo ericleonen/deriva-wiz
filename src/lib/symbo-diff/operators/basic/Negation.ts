@@ -19,7 +19,7 @@ export default class Negation extends Function {
     public eval(x: number): number | undefined {
         const evalInner = this.inner.eval(x);
 
-        if (evalInner !== undefined) return evalInner;
+        if (evalInner !== undefined) return -evalInner;
 
         return undefined;
     }

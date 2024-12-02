@@ -15,9 +15,8 @@ import Cosine from "../symbo-diff/operators/trigonometric/Cosine";
 import Tangent from "../symbo-diff/operators/trigonometric/Tangent";
 
 /**
- * Returns an easy Function to take the derivative of in the form: af(bx+c)+d where f is x^n,
- * sqrt{x}, 1/x, e^x, ln(x), sin(x), cos(x), or tan(x). a, b, c, and d are Normal. a and b are
- * non-zero.
+ * Returns an easy Function to take the derivative of in the form: af(bx+c)+d where f is x, x^n,
+ * sqrt{x}, 1/x, e^x, ln(x), sin(x), cos(x), or tan(x).
  */
 export default function createEasyQuestion() {
     let a = Math.floor(normal(0, 2.5) + 0.5);
@@ -31,7 +30,7 @@ export default function createEasyQuestion() {
     let c = Math.floor(normal(0, 1.5) + 0.5);
     const C = c === 0 ? undefined : new Integer(Math.abs(c));
 
-    let d = Math.floor(normal(0, 1.5) + 0.5);
+    let d = uniform() < 0.33 ? Math.floor(uniform(-9, 10)) : 0;
     const D = d === 0 ? undefined : new Integer(Math.abs(d));
 
     let X: Function = new Variable();
@@ -57,28 +56,31 @@ export default function createEasyQuestion() {
     }
 
     let f: Function;
-    switch (Math.floor(Math.random() * 8)) {
-        case 0: // x^n
-            let n = Math.floor(uniform(-9, 10));
+    switch (Math.floor(Math.random() * 9)) {
+        case 0: // x
+            f = X;
+            break;
+        case 1: // x^n
+            let n = Math.floor(uniform(-3, 10));
             if (n === 0 || n === 1) n = 2;
             
             f = new Exponentiation(X, new Integer(n));
             break;
-        case 1: // sqrt{x}
+        case 2: // sqrt{x}
             f = new Root(X);
             break;
-        case 2: // 1/x
+        case 3: // 1/x
             return A ? new Division(A, X) : new Division(new Integer(1), X);
-        case 3: // e^x
+        case 4: // e^x
             f = new Exponentiation(X);
             break;
-        case 4: // ln(x)
+        case 5: // ln(x)
             f = new Logarithm(X);
             break;
-        case 5: // sin(x)
+        case 6: // sin(x)
             f = new Sine(X);
             break;
-        case 6: // cos(x)
+        case 7: // cos(x)
             f = new Cosine(X);
             break;
         default: // tan(x)
@@ -86,10 +88,10 @@ export default function createEasyQuestion() {
             break;
     }
 
-    f = A ? new Multiplication(A, f) : f;
+    f = A && !(f instanceof Division) ? new Multiplication(A, f) : f;
     f = a < 0 ? new Negation(f) : f;
     
-    if (D) {
+    if (!(f instanceof Addition || f instanceof Subtraction ) && D) {
         f = d > 0 ? new Addition(f, D) : new Subtraction(f, D);
     }
 

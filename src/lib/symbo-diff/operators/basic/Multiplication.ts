@@ -1,6 +1,8 @@
 import Function from "../../Function";
 import Integer from "../../operands/Integer";
 import Addition from "./Addition";
+import Negation from "./Negation";
+import Subtraction from "./Subtraction";
 
 /**
  * A binary multiplication operator.
@@ -45,6 +47,8 @@ export default class Multiplication extends Function {
 
     public get derivative(): Function {
         if (this.isConstant) return new Integer(0);
+        else if (this.left.isConstant) return new Multiplication(this.left, this.right.derivative);
+        else if (this.right.isConstant) return new Multiplication(this.right, this.left.derivative);
 
         return new Addition(
             new Multiplication(this.left, this.right.derivative),
@@ -53,10 +57,27 @@ export default class Multiplication extends Function {
     }
 
     public get latex(): string {
-        if (this.left instanceof Integer && this.right instanceof Integer) {
-            return `${this.left.latex}\\cdot${this.right.latex}`;
+        let leftLatex = this.left.latex;
+        let rightLatex = this.right.latex;
+
+        if (this.left instanceof Addition || this.left instanceof Subtraction) {
+            leftLatex = `\\left(${leftLatex}\\right)`;
         }
 
-        return `${this.left.latex}${this.right.latex}`;
+        if (this.right instanceof Addition || this.right instanceof Subtraction || this.right instanceof Negation) {
+            rightLatex = `\\left(${rightLatex}\\right)`;
+        } else if (
+            this.left instanceof Integer && 
+            this.right instanceof Multiplication && 
+            this.right.left instanceof Integer
+        ) {
+            rightLatex = `\\left(${rightLatex}\\right)`;
+        }
+
+        if (this.left instanceof Integer && this.right instanceof Integer) {
+            return `${leftLatex}\\cdot${rightLatex}`;
+        }
+
+        return `${leftLatex}${rightLatex}`;
     }
 }
