@@ -1,5 +1,6 @@
 import Function from "../../Function";
 import Integer from "../../operands/Integer";
+import { parenthesize } from "../../utils";
 import Addition from "./Addition";
 import Negation from "./Negation";
 import Subtraction from "./Subtraction";
@@ -57,26 +58,23 @@ export default class Multiplication extends Function {
     }
 
     public get latex(): string {
-        let leftLatex = this.left.latex;
-        let rightLatex = this.right.latex;
-
-        if (this.left instanceof Addition || this.left instanceof Subtraction) {
-            leftLatex = `\\left(${leftLatex}\\right)`;
-        }
-
-        if (this.right instanceof Addition || this.right instanceof Subtraction || this.right instanceof Negation) {
-            rightLatex = `\\left(${rightLatex}\\right)`;
-        } else if (
+        if (
+            this.right instanceof Integer || (
             this.left instanceof Integer && 
-            this.right instanceof Multiplication && 
-            this.right.left instanceof Integer
-        ) {
-            rightLatex = `\\left(${rightLatex}\\right)`;
+            this.right instanceof Multiplication && this.right.left instanceof Integer
+        )) {
+            return `${this.left.latex}\\cdot${this.right.latex}`;
         }
 
-        if (this.left instanceof Integer && this.right instanceof Integer) {
-            return `${leftLatex}\\cdot${rightLatex}`;
-        }
+        const leftLatex = parenthesize(
+            this.left.latex,
+            this.left instanceof Addition || this.left instanceof Subtraction
+        );
+        const rightLatex = parenthesize(
+            this.right.latex,
+            this.right instanceof Addition || this.right instanceof Subtraction || 
+            this.right instanceof Negation
+        );
 
         return `${leftLatex}${rightLatex}`;
     }

@@ -1,5 +1,8 @@
 import Function from "../../Function";
 import Integer from "../../operands/Integer";
+import { parenthesize } from "../../utils";
+import Addition from "./Addition";
+import Subtraction from "./Subtraction";
 
 /**
  * A unary negation operator.
@@ -31,6 +34,11 @@ export default class Negation extends Function {
     }
 
     public get latex(): string {
-        return `-${this.inner.latex}`;
+        const innerLatex = parenthesize(
+            this.inner.latex, 
+            this.inner instanceof Addition || this.inner instanceof Subtraction
+        );
+
+        return `-${innerLatex}`;
     }
 }

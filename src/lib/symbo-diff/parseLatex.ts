@@ -120,8 +120,6 @@ function splitIntoSymbols(latex: string): string[] {
         }
     }
 
-    console.log(openCount, groupIndexInterval)
-
     throw new Error(`invalid LaTeX: ${latex}`);
 }
 
@@ -140,10 +138,8 @@ function symbolsToFunction(symbols: string[]): Function {
     }
 
     // Handle subtraction and negation
-    const minusIndex = symbols.indexOf("-");
-    if (minusIndex === 0) {
-        return new Negation(symbolsToFunction(symbols.slice(1)));
-    } else if (minusIndex > 0) {
+    const minusIndex = symbols.indexOf("-", 1);
+    if (minusIndex > 0 && symbols[minusIndex - 1] !== "\\cdot") {
         return new Subtraction(
             symbolsToFunction(symbols.slice(0, minusIndex)),
             symbolsToFunction(symbols.slice(minusIndex + 1))
@@ -161,10 +157,13 @@ function symbolsToFunction(symbols: string[]): Function {
         } else if (symbol === "x") {
             functions.push(new Variable());
             continue;
-        } else if (symbol === "e" || symbol === "pi") {
-            functions.push(new Transcendental(symbol));
+        } else if (symbol === "e" || symbol === "\\pi") {
+            functions.push(new Transcendental(symbol === "e" ? "e" : "pi"));
             continue;
         } else if (symbol === "\\cdot") {
+            continue;
+        } else if (symbol === "-") { // unary negative sign / negation
+            functions.push(new Negation(symbolsToFunction(symbols)));
             continue;
         } else if (symbol === "^") { // handle exponentiation
             if (functions.length === 0) throw new Error("^ does not have a base");
