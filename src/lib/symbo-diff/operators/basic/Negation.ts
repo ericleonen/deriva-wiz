@@ -8,7 +8,7 @@ import Subtraction from "./Subtraction";
  * A unary negation operator.
  */
 export default class Negation extends Function {
-    private readonly inner: Function;
+    public readonly inner: Function;
 
     /**
      * Initializes a negation operator acting on the given operand.

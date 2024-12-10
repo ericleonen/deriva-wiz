@@ -8,3 +8,16 @@ export function normal(mean: number, variance: number) {
 
     return Math.sqrt(variance)*Math.sqrt(2*Math.log(1/U1))*Math.cos(2*Math.PI*U2) + mean;
 }
+
+export function choose(relativeLikelihoods: number[]): number {
+    const sum = relativeLikelihoods.reduce((a, b) => a + b);
+    let U = uniform(0, sum);
+
+    for (let i = 0; i < relativeLikelihoods.length; i++) {
+        U -= relativeLikelihoods[i];
+
+        if (U <= 0) return i;
+    }
+
+    throw new Error();
+}

@@ -51,7 +51,9 @@ export default abstract class Function {
             const otherY = other.eval(x);
 
             if (thisY !== undefined && otherY !== undefined) {
-                if (Math.abs(thisY - otherY) > IS_EQUAL_TOLERANCE) {
+                const maxMagnitude = Math.max(Math.abs(thisY), Math.abs(otherY));
+
+                if (Math.abs(thisY - otherY) / maxMagnitude > IS_EQUAL_TOLERANCE) {
                     console.log(`x=${x}, diff=${Math.abs(thisY - otherY)}`)
                     return false;
                 }

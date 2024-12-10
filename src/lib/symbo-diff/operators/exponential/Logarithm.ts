@@ -54,9 +54,9 @@ export default class Logarithm extends Function {
 
     public get latex(): string {
         if (!this.base) {
-            return `\\ln(${this.inner.latex})`;
+            return `\\ln\\left(${this.inner.latex}\\right)`;
         } else {
-            return `\\log_{${this.base.latex}}(${this.inner.latex})`;
+            return `\\log_{${this.base.latex}}\\left(${this.inner.latex}\\right)`;
         }
     }
 }

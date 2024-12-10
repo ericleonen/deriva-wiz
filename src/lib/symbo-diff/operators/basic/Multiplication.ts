@@ -1,6 +1,7 @@
 import Function from "../../Function";
 import Integer from "../../operands/Integer";
 import { parenthesize } from "../../utils";
+import Exponentiation from "../exponential/Exponentiation";
 import Addition from "./Addition";
 import Negation from "./Negation";
 import Subtraction from "./Subtraction";
@@ -60,8 +61,10 @@ export default class Multiplication extends Function {
     public get latex(): string {
         if (
             this.right instanceof Integer || (
-            this.left instanceof Integer && 
-            this.right instanceof Multiplication && this.right.left instanceof Integer
+            this.left instanceof Integer && (
+                (this.right instanceof Multiplication && this.right.left instanceof Integer) ||
+                (this.right instanceof Exponentiation && this.right.base instanceof Integer)
+            )
         )) {
             return `${this.left.latex}\\cdot${this.right.latex}`;
         }

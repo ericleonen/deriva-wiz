@@ -1,7 +1,6 @@
 import Function from "../../Function";
 import Constant from "../../operands/Constant";
 import Integer from "../../operands/Integer";
-import Transcendental from "../../operands/Transcendental";
 import Variable from "../../operands/Variable";
 import Addition from "../basic/Addition";
 import Division from "../basic/Division";
@@ -13,8 +12,8 @@ import Logarithm from "./Logarithm";
  * A binary exponentiation operator.
  */
 export default class Exponentiation extends Function {
-    private readonly base?: Function;
-    private readonly exponent: Function;
+    public readonly base?: Function;
+    public readonly exponent: Function;
 
     /**
      * Initializes a exponentiation operator acting on the given (optional) base and exponent. If

@@ -1,5 +1,7 @@
 import Function from "../../Function";
 import Integer from "../../operands/Integer";
+import Negation from "./Negation";
+import Subtraction from "./Subtraction";
 
 /**
  * A binary addition operator.
@@ -28,6 +30,14 @@ export default class Addition extends Function {
         }
 
         return undefined;
+    }
+
+    public get simplified(): Function {
+        if (this.right instanceof Negation) {
+            return new Subtraction(this.left, this.right.inner);
+        }
+
+        return this;
     }
 
     public get derivative(): Function {

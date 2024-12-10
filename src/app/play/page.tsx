@@ -1,18 +1,18 @@
 "use client"
 
-import createEasyQuestion from "@/lib/question-generator/easy";
 import { useEffect, useRef, useState } from "react"
 import { addStyles, EditableMathField, StaticMathField } from "react-mathquill";
 import Function from "@/lib/symbo-diff/Function";
 import parseLatex from "@/lib/symbo-diff/parseLatex";
+import QuestionGenerator from "@/lib/question-generator/QuestionGenerator";
 
 if (window) addStyles();
 
-const easyQuestions = Array.from(Array(20)).map(() => createEasyQuestion());
+const generator = new QuestionGenerator("easy");
 
 export default function PlayPage() {
     const [latex, setLatex] = useState("");
-    const [questions, setQuestions] = useState(easyQuestions);
+    const [questions, setQuestions] = useState<Function[]>(Array.from(Array(10)).map(() => generator.createQuestion()));
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
     useEffect(() => {
@@ -57,6 +57,9 @@ export default function PlayPage() {
                 latex={latex} 
                 onChange={(mathField) => {
                     setLatex(mathField.latex())
+                }}
+                config={{
+                    autoCommands: "pi sqrt"
                 }}
             />
         </div>
