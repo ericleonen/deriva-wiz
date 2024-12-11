@@ -1,13 +1,14 @@
 import Function from "../../Function";
 import Integer from "../../operands/Integer";
 import Addition from "./Addition";
+import Negation from "./Negation";
 
 /**
  * A binary subtraction operator.
  */
 export default class Subtraction extends Function {
-    private readonly left: Function;
-    private readonly right: Function;
+    private left: Function;
+    private right: Function;
 
     /**
      * Initializes an subtraction operator acting on the given minuend and subtrahend.
@@ -35,6 +36,17 @@ export default class Subtraction extends Function {
         if (this.isConstant) return new Integer(0);
 
         return new Subtraction(this.left.derivative, this.right.derivative);
+    }
+
+    public get simplified(): Function {
+        this.left = this.left.simplified;
+        this.right = this.right.simplified;
+
+        if (this.right instanceof Negation) {
+            return new Addition(this.left, this.right.inner);
+        }
+
+        return this;
     }
 
     public get latex(): string {

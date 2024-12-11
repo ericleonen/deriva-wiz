@@ -5,7 +5,7 @@ import Negation from "../basic/Negation";
 import Cotangent from "./Cotangent";
 
 export default class Cosecant extends Function {
-    private readonly inner: Function;
+    private inner: Function;
 
     /**
      * Initializes a cosecant operator acting on the given operand.
@@ -34,6 +34,12 @@ export default class Cosecant extends Function {
         return new Negation(
             new Multiplication(this, new Cotangent(this.inner), this.inner.derivative)
         )
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        return this;
     }
 
     public get latex(): string {

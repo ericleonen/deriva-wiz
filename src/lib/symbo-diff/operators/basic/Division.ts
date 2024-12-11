@@ -9,8 +9,8 @@ import Negation from "./Negation";
  * A binary division operator.
  */
 export default class Division extends Function {
-    private readonly top: Function;
-    private readonly bottom: Function;
+    private top: Function;
+    private bottom: Function;
 
     /**
      * Initializes a division operator acting on the given numerator and denominator.
@@ -50,6 +50,24 @@ export default class Division extends Function {
             ),
             new Exponentiation(this.bottom, new Integer(2))
         )
+    }
+
+    public get simplified(): Function {
+        this.top = this.top.simplified;
+        this.bottom = this.bottom.simplified;
+
+        if (this.top instanceof Negation && this.bottom instanceof Negation) {
+            this.top = this.top.inner;
+            this.bottom = this.bottom.inner;
+        } else if (this.top instanceof Negation) {
+            this.top = this.top.inner;
+            return new Negation(this);
+        } else if (this.bottom instanceof Negation) {
+            this.bottom = this.bottom.inner;
+            return new Negation(this);
+        }
+
+        return this;
     }
 
     public get latex(): string {

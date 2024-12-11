@@ -5,7 +5,7 @@ import Division from "../basic/Division";
 import Exponentiation from "../exponential/Exponentiation";
 
 export default class Arctangent extends Function {
-    private readonly inner: Function;
+    private inner: Function;
 
     /**
      * Initializes an arctangent operator acting on the given operand.
@@ -38,6 +38,12 @@ export default class Arctangent extends Function {
                 new Exponentiation(this.inner, new Integer(2))
             )
         );
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        return this;
     }
 
     public get latex(): string {

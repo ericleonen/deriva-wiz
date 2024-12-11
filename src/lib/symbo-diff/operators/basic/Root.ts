@@ -10,28 +10,21 @@ import Negation from "./Negation";
  */
 export default class Root extends Function {
     private readonly radical?: Integer;
-    private readonly inner: Function;
+    private inner: Function;
 
     /**
      * Initializes a root operator acting on the given (optional) radical and operand. If no
      * radical is given, defaults to 2. If the given radical isn't positive, throws an Error.
      */
-    public constructor(radicalOrInner: Integer | Function, inner?: Function) {
-        if (radicalOrInner instanceof Integer) {
-            if (!inner) throw new Error("inner must be given");
-            else if (radicalOrInner.value <= 1) throw new Error("radical must be greater than 1");
-
-            super(inner);
-
-            this.radical = radicalOrInner;
-            this.inner = inner;
-        } else { // radicalOrInner instanceOf Function
-            if (inner) throw new Error("radical must be an integer");
-
-            super(radicalOrInner);
-
-            this.inner = radicalOrInner;
+    public constructor(inner: Function, radical?: Integer) {
+        if (radical && radical.value < 0) {
+            throw new Error("Radical must be positive.");
         }
+
+        super(inner);
+
+        this.inner = inner;
+        this.radical = radical;
     }
 
     public eval(x: number): number | undefined {
@@ -76,6 +69,12 @@ export default class Root extends Function {
                 )
             );
         }
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        return this;
     }
 
     public get latex(): string {

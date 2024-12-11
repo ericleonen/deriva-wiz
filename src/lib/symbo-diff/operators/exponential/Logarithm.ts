@@ -7,8 +7,8 @@ import Multiplication from "../basic/Multiplication";
  * A binary logarithm operator.
  */
 export default class Logarithm extends Function {
-    public readonly inner: Function;
-    public readonly base?: Constant;
+    public inner: Function;
+    public base?: Constant;
 
     /**
      * Initializes a logrithm operator acting on the given operand and (optional) base. If no base
@@ -50,6 +50,12 @@ export default class Logarithm extends Function {
                 new Multiplication(this.inner, new Logarithm(this.base))
             );
         }
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        return this;
     }
 
     public get latex(): string {

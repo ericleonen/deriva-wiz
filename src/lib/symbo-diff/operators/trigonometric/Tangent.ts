@@ -5,7 +5,7 @@ import Exponentiation from "../exponential/Exponentiation";
 import Secant from "./Secant";
 
 export default class Tangent extends Function {
-    private readonly inner: Function;
+    private inner: Function;
 
     /**
      * Initializes a tangent operator acting on the given operand.
@@ -35,6 +35,12 @@ export default class Tangent extends Function {
             new Exponentiation(new Secant(this.inner), new Integer(2)),
             this.inner.derivative
         )
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        return this;
     }
 
     public get latex(): string {

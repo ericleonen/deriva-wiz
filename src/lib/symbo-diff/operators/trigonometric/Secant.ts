@@ -4,7 +4,7 @@ import Multiplication from "../basic/Multiplication";
 import Tangent from "./Tangent";
 
 export default class Secant extends Function {
-    private readonly inner: Function;
+    private inner: Function;
 
     /**
      * Initializes a secant operator acting on the given operand.
@@ -31,6 +31,12 @@ export default class Secant extends Function {
         if (this.isConstant) return new Integer(0);
 
         return new Multiplication(this, new Tangent(this.inner), this.inner.derivative);
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        return this;
     }
 
     public get latex(): string {

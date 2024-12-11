@@ -7,7 +7,7 @@ import Subtraction from "../basic/Subtraction";
 import Exponentiation from "../exponential/Exponentiation";
 
 export default class Arccosine extends Function {
-    private readonly inner: Function;
+    private inner: Function;
 
     /**
      * Initializes an arccosine operator acting on the given operand.
@@ -42,6 +42,12 @@ export default class Arccosine extends Function {
                 ))
             )
         );
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        return this;
     }
 
     public get latex(): string {

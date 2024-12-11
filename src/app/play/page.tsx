@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { addStyles, EditableMathField, StaticMathField } from "react-mathquill";
 import Function from "@/lib/symbo-diff/Function";
 import parseLatex from "@/lib/symbo-diff/parseLatex";
@@ -8,11 +8,12 @@ import QuestionGenerator from "@/lib/question-generator/QuestionGenerator";
 
 if (window) addStyles();
 
-const generator = new QuestionGenerator("easy");
+const generator = new QuestionGenerator("medium");
+const generatedQuestions = Array.from(Array(20)).map(() => generator.createQuestion());
 
 export default function PlayPage() {
     const [latex, setLatex] = useState("");
-    const [questions, setQuestions] = useState<Function[]>(Array.from(Array(10)).map(() => generator.createQuestion()));
+    const [questions, setQuestions] = useState<Function[]>(generatedQuestions);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
     useEffect(() => {
@@ -22,11 +23,6 @@ export default function PlayPage() {
             if (questions[currentQuestionIndex].derivative.equals(answer)) {
                 setCurrentQuestionIndex(currentQuestionIndex + 1);
                 setLatex("");
-            } else {
-                console.log("Correct Answer");
-                console.log(questions[currentQuestionIndex].derivative);
-                console.log("Your Answer");
-                console.log(answer);
             }
         } catch (err) {
             // console.log(err);
@@ -38,17 +34,19 @@ export default function PlayPage() {
             <div 
                 className="flex flex-col-reverse items-end transition-transform"
                 style={{
-                    transform: `translateY(calc(${30 + (currentQuestionIndex * 60)}px - 50%))` 
+                    transform: `translateY(calc(${50 + 100*currentQuestionIndex}px - 50%))` 
                 }}
             >
                 {
                     questions.map((question: Function, questionIndex: number) => (
-                        <StaticMathField 
+                        <div 
                             key={`question_${questionIndex}`}
-                            className="h-[60px] py-1 px-2 flex justify-center items-center"
+                            className="h-[100px] flex justify-center items-center"
                         >
-                            {`\\frac{d}{dx}\\left(${question.latex}\\right)=`}
-                        </StaticMathField>
+                            <StaticMathField>
+                                {`\\frac{d}{dx}\\left(${question.latex}\\right)=`}
+                            </StaticMathField>
+                        </div>
                     ))
                 }
             </div>

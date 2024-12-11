@@ -8,7 +8,7 @@ import Subtraction from "./Subtraction";
  * A unary negation operator.
  */
 export default class Negation extends Function {
-    public readonly inner: Function;
+    public inner: Function;
 
     /**
      * Initializes a negation operator acting on the given operand.
@@ -31,6 +31,16 @@ export default class Negation extends Function {
         if (this.isConstant) return new Integer(0);
 
         return new Negation(this.inner.derivative);
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        if (this.inner instanceof Negation) {
+            return this.inner.inner;
+        }
+
+        return this;
     }
 
     public get latex(): string {

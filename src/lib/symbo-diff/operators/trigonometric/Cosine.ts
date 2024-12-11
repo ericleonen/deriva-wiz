@@ -4,7 +4,7 @@ import Negation from "../basic/Negation";
 import Sine from "./Sine";
 
 export default class Cosine extends Function {
-    private readonly inner: Function;
+    private inner: Function;
 
     /**
      * Initializes a cosine operator acting on the given operand.
@@ -31,6 +31,12 @@ export default class Cosine extends Function {
         return new Negation(
             new Multiplication(new Sine(this.inner), this.inner.derivative)
         );
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        return this;
     }
 
     public get latex(): string {

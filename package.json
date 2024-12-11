@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "buildMatrix": "node src/lib/question-generator/matrices/buildMatrix.mjs"
   },
   "dependencies": {
     "@types/numjs": "^0.16.8",

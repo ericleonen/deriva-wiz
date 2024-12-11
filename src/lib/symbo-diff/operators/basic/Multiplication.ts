@@ -1,5 +1,7 @@
 import Function from "../../Function";
+import Constant from "../../operands/Constant";
 import Integer from "../../operands/Integer";
+import Variable from "../../operands/Variable";
 import { parenthesize } from "../../utils";
 import Exponentiation from "../exponential/Exponentiation";
 import Addition from "./Addition";
@@ -10,8 +12,8 @@ import Subtraction from "./Subtraction";
  * A binary multiplication operator.
  */
 export default class Multiplication extends Function {
-    private readonly left: Function;
-    private readonly right: Function;
+    private left: Function;
+    private right: Function;
 
     /**
      * Initializes a multiplication operator acting on the given factors. If given less than 2
@@ -56,6 +58,28 @@ export default class Multiplication extends Function {
             new Multiplication(this.left, this.right.derivative),
             new Multiplication(this.left.derivative, this.right)
         );
+    }
+
+    public get simplified(): Function {
+        this.left = this.left.simplified;
+        this.right = this.right.simplified;
+
+        if (this.right instanceof Variable) {
+            if (this.left instanceof Variable) {
+                return new Exponentiation(this.left, new Integer(2));
+            } else if (!this.left.isConstant) {
+                [this.right, this.left] = [this.left, this.right];
+            }
+        } else if (this.left instanceof Variable && this.right.isConstant) {
+            [this.right, this.left] = [this.left, this.right];
+        } else if (this.right instanceof Negation) {
+            if (this.left instanceof Negation) {
+                this.left = this.left.inner;
+                this.right = this.right.inner;
+            }
+        }
+
+        return this;
     }
 
     public get latex(): string {

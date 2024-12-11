@@ -4,7 +4,7 @@ import Multiplication from "../basic/Multiplication";
 import Cosine from "./Cosine";
 
 export default class Sine extends Function {
-    private readonly inner: Function;
+    private inner: Function;
 
     /**
      * Initializes a sine operator acting on the given operand.
@@ -31,6 +31,12 @@ export default class Sine extends Function {
         if (this.isConstant) return new Integer(0);
 
         return new Multiplication(new Cosine(this.inner), this.inner.derivative);
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        return this;
     }
 
     public get latex(): string {

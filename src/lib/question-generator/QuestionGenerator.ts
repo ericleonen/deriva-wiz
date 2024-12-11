@@ -19,8 +19,8 @@ import Cotangent from "../symbo-diff/operators/trigonometric/Cotangent";
 import Arcsine from "../symbo-diff/operators/trigonometric/Arcsine";
 import Arccosine from "../symbo-diff/operators/trigonometric/Arccosine";
 import Arctangent from "../symbo-diff/operators/trigonometric/Arctangent";
-import { readMatrixCSV, column, multiply } from "./utils";
-import matrices from "./matrices.json";
+import { column, multiply } from "./utils";
+import matrices from "./matrices/index.json";
 
 /**
  * A question generator for all difficulties.
@@ -41,15 +41,17 @@ export default class QuestionGenerator {
      * Initializes a question generator with the given difficulty.
      */
     public constructor(difficulty: string) {
-        this.origEmitter = readMatrixCSV(matrices["easy"].emitter);
-        this.hidden = readMatrixCSV(matrices["easy"].hidden);
+        // @ts-ignore
+        this.origEmitter = matrices[difficulty].emitter;
+        // @ts-ignore
+        this.hidden = matrices[difficulty].hidden;
     }
 
     public createQuestion(): Function {
-        return this.createQuestionHelper().simplified;
+        return this.createExpression().simplified;
     }
 
-    private createQuestionHelper(parentNodeIndex = 0, emitter = this.origEmitter): Function {
+    private createExpression(parentNodeIndex = 0, emitter = this.origEmitter): Function {
         const relativeLikelihoods = column(emitter, parentNodeIndex);
         let nodeIndex = choose(relativeLikelihoods);
 
@@ -61,90 +63,98 @@ export default class QuestionGenerator {
                 return new Variable();
             case 1: // binary addition f(x) + g(x)
                 return new Addition(
-                    this.createQuestionHelper(nodeIndex, emitter),
-                    this.createQuestionHelper(nodeIndex, emitter)
+                    this.createExpression(nodeIndex, emitter),
+                    this.createExpression(nodeIndex, emitter)
                 );
             case 2: // binary subtraction f(x) - g(x)
-                return new Subtraction(
-                    this.createQuestionHelper(nodeIndex, emitter),
-                    this.createQuestionHelper(nodeIndex, emitter)
-                );
+                const subtractionLeft = this.createExpression(nodeIndex, emitter);
+                let subtractionRight: Function | null = null;
+
+                while (!subtractionRight || subtractionLeft.equals(subtractionRight)) {
+                    subtractionRight = this.createExpression(nodeIndex, emitter);
+                }
+
+                return new Subtraction(subtractionLeft, subtractionRight);
             case 3: // binary multiplication f(x)g(x)
                 return new Multiplication(
-                    this.createQuestionHelper(nodeIndex, emitter),
-                    this.createQuestionHelper(nodeIndex, emitter)
+                    this.createExpression(nodeIndex, emitter),
+                    this.createExpression(nodeIndex, emitter)
                 );
             case 4: // binary division f(x) / g(x)
-                return new Division(
-                    this.createQuestionHelper(nodeIndex, emitter),
-                    this.createQuestionHelper(nodeIndex, emitter)
-                );
+                const divisionTop = this.createExpression(nodeIndex, emitter);
+                let divisionBottom: Function | null = null;
+
+                while (!divisionBottom || divisionTop.isProportionalTo(divisionBottom)) {
+                    divisionBottom = this.createExpression(nodeIndex, emitter);
+                }
+
+                return new Division(divisionTop, divisionBottom);
             case 5: // binary exponentiation f(x)^g(x)
                 return new Exponentiation(
-                    this.createQuestionHelper(nodeIndex, emitter),
-                    this.createQuestionHelper(nodeIndex, emitter)
+                    this.createExpression(nodeIndex, emitter),
+                    this.createExpression(nodeIndex, emitter)
                 );
             case 6: // addition f(x) + r
                 return new Addition(
-                    this.createQuestionHelper(nodeIndex, emitter),
+                    this.createExpression(nodeIndex, emitter),
                     this.createInteger(1, 9)
                 );
             case 7: // subtraction f(x) - r
                 return new Subtraction(
-                    this.createQuestionHelper(nodeIndex, emitter),
+                    this.createExpression(nodeIndex, emitter),
                     this.createInteger(1, 9)
                 );
             case 8: // multiplication rf(x)
                 return new Multiplication(
                     this.createInteger(2, 9),
-                    this.createQuestionHelper(nodeIndex, emitter)
+                    this.createExpression(nodeIndex, emitter)
                 );
             case 9: // division f(x) / r
                 return new Division(
-                    this.createQuestionHelper(nodeIndex, emitter),
+                    this.createExpression(nodeIndex, emitter),
                     this.createInteger(2, 9)
                 );
             case 10: // negation -f(x)
-                return new Negation(this.createQuestionHelper(nodeIndex, emitter));
+                return new Negation(this.createExpression(nodeIndex, emitter));
             case 11: // square root sqrt(f(x))
-                return new Root(this.createQuestionHelper(nodeIndex, emitter));
+                return new Root(this.createExpression(nodeIndex, emitter));
             case 12: // natural exponentiation e^f(x)
-                return new Exponentiation(this.createQuestionHelper(nodeIndex, emitter));
+                return new Exponentiation(this.createExpression(nodeIndex, emitter));
             case 13: // exponentiation r^f(x)
                 return new Exponentiation(
                     this.createInteger(2, 9),
-                    this.createQuestionHelper(nodeIndex, emitter)
+                    this.createExpression(nodeIndex, emitter)
                 );
             case 14: // power f(x)^r
                 return new Exponentiation(
-                    this.createQuestionHelper(nodeIndex, emitter),
+                    this.createExpression(nodeIndex, emitter),
                     this.createInteger(2, 9, true)
                 );
             case 15: // natural logarithm ln(f(x))
-                return new Logarithm(this.createQuestionHelper(nodeIndex, emitter));
+                return new Logarithm(this.createExpression(nodeIndex, emitter));
             case 16: // logarithm log_n(f(x))
                 return new Logarithm(
-                    this.createQuestionHelper(nodeIndex, emitter),
+                    this.createExpression(nodeIndex, emitter),
                     this.createInteger(2, 9)
                 );
             case 17: // sine sin(f(x))
-                return new Sine(this.createQuestionHelper(nodeIndex, emitter));
+                return new Sine(this.createExpression(nodeIndex, emitter));
             case 18: // cosine cos(f(x))
-                return new Cosine(this.createQuestionHelper(nodeIndex, emitter));
+                return new Cosine(this.createExpression(nodeIndex, emitter));
             case 19: // tangent tan(f(x))
-                return new Tangent(this.createQuestionHelper(nodeIndex, emitter));
+                return new Tangent(this.createExpression(nodeIndex, emitter));
             case 20: // cosecant csc(f(x))
-                return new Cosecant(this.createQuestionHelper(nodeIndex, emitter));
+                return new Cosecant(this.createExpression(nodeIndex, emitter));
             case 21: // secant sec(f(x))
-                return new Secant(this.createQuestionHelper(nodeIndex, emitter));
+                return new Secant(this.createExpression(nodeIndex, emitter));
             case 22: // cotangent cot(f(x))
-                return new Cotangent(this.createQuestionHelper(nodeIndex, emitter));
+                return new Cotangent(this.createExpression(nodeIndex, emitter));
             case 23: // arcsine arcsin(f(x))
-                return new Arcsine(this.createQuestionHelper(nodeIndex, emitter));
+                return new Arcsine(this.createExpression(nodeIndex, emitter));
             case 24: // arccosine arccos(f(x))
-                return new Arccosine(this.createQuestionHelper(nodeIndex, emitter));
+                return new Arccosine(this.createExpression(nodeIndex, emitter));
             case 25: // arctangent arctan(f(x))
-                return new Arctangent(this.createQuestionHelper(nodeIndex, emitter));
+                return new Arctangent(this.createExpression(nodeIndex, emitter));
             default:
                 throw new Error();
         }

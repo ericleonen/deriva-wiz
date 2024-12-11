@@ -54,7 +54,28 @@ export default abstract class Function {
                 const maxMagnitude = Math.max(Math.abs(thisY), Math.abs(otherY));
 
                 if (Math.abs(thisY - otherY) / maxMagnitude > IS_EQUAL_TOLERANCE) {
-                    console.log(`x=${x}, diff=${Math.abs(thisY - otherY)}`)
+                    return false;
+                }
+            } else if (thisY === undefined || otherY === undefined) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public isProportionalTo(other: Function): boolean {
+        let factor: number | null = null;
+
+        for (let i = 0; i < IS_EQUAL_NUM_SAMPLES; i++) {
+            const x = Math.random() * 2*IS_EQUAL_UPPER_BOUND - IS_EQUAL_UPPER_BOUND;
+
+            const thisY = this.eval(x);
+            const otherY = other.eval(x);
+
+            if (thisY !== undefined && otherY !== undefined) {
+                if (factor === null) factor = thisY / otherY;
+                else if (Math.abs(thisY / otherY - factor) > IS_EQUAL_TOLERANCE) {
                     return false;
                 }
             }

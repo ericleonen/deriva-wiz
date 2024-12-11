@@ -4,10 +4,9 @@ import Multiplication from "../basic/Multiplication";
 import Negation from "../basic/Negation";
 import Exponentiation from "../exponential/Exponentiation";
 import Cosecant from "./Cosecant";
-import Secant from "./Secant";
 
 export default class Cotangent extends Function {
-    private readonly inner: Function;
+    private inner: Function;
 
     /**
      * Initializes a cotangent operator acting on the given operand.
@@ -39,6 +38,12 @@ export default class Cotangent extends Function {
                 this.inner.derivative
             )
         )
+    }
+
+    public get simplified(): Function {
+        this.inner = this.inner.simplified;
+
+        return this;
     }
 
     public get latex(): string {
