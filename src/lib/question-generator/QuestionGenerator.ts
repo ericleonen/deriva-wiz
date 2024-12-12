@@ -118,42 +118,47 @@ export default class QuestionGenerator {
                 return new Negation(this.createExpression(nodeIndex, emitter));
             case 11: // square root sqrt(f(x))
                 return new Root(this.createExpression(nodeIndex, emitter));
-            case 12: // natural exponentiation e^f(x)
+            case 12: // flip r / f(x)
+                return new Division(
+                    this.createInteger(1, 9),
+                    this.createExpression(nodeIndex, emitter)
+                )
+            case 13: // natural exponentiation e^f(x)
                 return new Exponentiation(this.createExpression(nodeIndex, emitter));
-            case 13: // exponentiation r^f(x)
+            case 14: // exponentiation r^f(x)
                 return new Exponentiation(
                     this.createInteger(2, 9),
                     this.createExpression(nodeIndex, emitter)
                 );
-            case 14: // power f(x)^r
+            case 15: // power f(x)^r
                 return new Exponentiation(
                     this.createExpression(nodeIndex, emitter),
-                    this.createInteger(2, 9, true)
+                    this.createInteger(2, 5, true)
                 );
-            case 15: // natural logarithm ln(f(x))
+            case 16: // natural logarithm ln(f(x))
                 return new Logarithm(this.createExpression(nodeIndex, emitter));
-            case 16: // logarithm log_n(f(x))
+            case 17: // logarithm log_n(f(x))
                 return new Logarithm(
                     this.createExpression(nodeIndex, emitter),
                     this.createInteger(2, 9)
                 );
-            case 17: // sine sin(f(x))
+            case 18: // sine sin(f(x))
                 return new Sine(this.createExpression(nodeIndex, emitter));
-            case 18: // cosine cos(f(x))
+            case 19: // cosine cos(f(x))
                 return new Cosine(this.createExpression(nodeIndex, emitter));
-            case 19: // tangent tan(f(x))
+            case 20: // tangent tan(f(x))
                 return new Tangent(this.createExpression(nodeIndex, emitter));
-            case 20: // cosecant csc(f(x))
+            case 21: // cosecant csc(f(x))
                 return new Cosecant(this.createExpression(nodeIndex, emitter));
-            case 21: // secant sec(f(x))
+            case 22: // secant sec(f(x))
                 return new Secant(this.createExpression(nodeIndex, emitter));
-            case 22: // cotangent cot(f(x))
+            case 23: // cotangent cot(f(x))
                 return new Cotangent(this.createExpression(nodeIndex, emitter));
-            case 23: // arcsine arcsin(f(x))
+            case 24: // arcsine arcsin(f(x))
                 return new Arcsine(this.createExpression(nodeIndex, emitter));
-            case 24: // arccosine arccos(f(x))
+            case 25: // arccosine arccos(f(x))
                 return new Arccosine(this.createExpression(nodeIndex, emitter));
-            case 25: // arctangent arctan(f(x))
+            case 26: // arctangent arctan(f(x))
                 return new Arctangent(this.createExpression(nodeIndex, emitter));
             default:
                 throw new Error();
@@ -164,7 +169,7 @@ export default class QuestionGenerator {
         if (min < 1 || max <= min)
             throw new Error("min must be positive and max must be greater than min.");
 
-        const sign = includeNegatives && uniform() < 0.5 ? -1 : 1;
+        const sign = includeNegatives && uniform() < 0.33 ? -1 : 1;
 
         return new Integer(sign * Math.floor(uniform(min, max + 1)));
     }

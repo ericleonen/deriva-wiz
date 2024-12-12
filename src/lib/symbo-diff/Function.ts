@@ -41,11 +41,20 @@ export default abstract class Function {
     public abstract get latex(): string; // TODO: Decide if memoization is needed
 
     /**
-     * Returns true if this Function is equivalent to the given Function, false otherwise.
+     * Returns true if this Function is equivalent to the given Function, false otherwise. Half of
+     * the samples are chosen randomly, the other half come at evenly spaced intervals.
      */
     public equals(other: Function): boolean {
+        let domainMismatchCount = 0;
+
         for (let i = 0; i < IS_EQUAL_NUM_SAMPLES; i++) {
-            const x = Math.random() * 2*IS_EQUAL_UPPER_BOUND - IS_EQUAL_UPPER_BOUND;
+            let x: number;
+
+            if (i < IS_EQUAL_NUM_SAMPLES / 2) {
+                x = i*2*IS_EQUAL_UPPER_BOUND / IS_EQUAL_NUM_SAMPLES;
+            } else {
+                x = Math.random() * 2*IS_EQUAL_UPPER_BOUND - IS_EQUAL_UPPER_BOUND;
+            }
 
             const thisY = this.eval(x);
             const otherY = other.eval(x);
@@ -57,11 +66,15 @@ export default abstract class Function {
                     return false;
                 }
             } else if (thisY === undefined || otherY === undefined) {
-                return false;
+                domainMismatchCount++;
             }
         }
 
-        return true;
+        if (domainMismatchCount === IS_EQUAL_NUM_SAMPLES) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public isProportionalTo(other: Function): boolean {

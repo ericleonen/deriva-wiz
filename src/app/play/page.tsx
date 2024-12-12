@@ -25,7 +25,7 @@ export default function PlayPage() {
                 setLatex("");
             }
         } catch (err) {
-            // console.log(err);
+            // console.log(err)
         }
     }, [latex]);
 
