@@ -1,65 +1,51 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { addStyles, EditableMathField, StaticMathField } from "react-mathquill";
+import { useEffect, useRef, useState } from "react"
+import { addStyles } from "react-mathquill";
 import Function from "@/lib/symbo-diff/Function";
 import parseLatex from "@/lib/symbo-diff/parseLatex";
 import QuestionGenerator from "@/lib/question-generator/QuestionGenerator";
+import Questions from "./components/Questions";
+import AnswerField from "./components/AnswerField";
 
 if (window) addStyles();
 
-const generator = new QuestionGenerator("medium");
+const generator = new QuestionGenerator("easy");
 const generatedQuestions = Array.from(Array(20)).map(() => generator.createQuestion());
 
 export default function PlayPage() {
-    const [latex, setLatex] = useState("");
+    const [currentAnswerLatex, setCurrentAnswerLatex] = useState("");
     const [questions, setQuestions] = useState<Function[]>(generatedQuestions);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [answersLatex, setAnswersLatex] = useState<string[]>([]);
+
+    const audioRef = useRef<HTMLAudioElement>(null);
 
     useEffect(() => {
         try {
-            const answer = parseLatex(latex);
+            const answer = parseLatex(currentAnswerLatex);
 
             if (questions[currentQuestionIndex].derivative.equals(answer)) {
+                // handle correct answer
                 setCurrentQuestionIndex(currentQuestionIndex + 1);
-                setLatex("");
+                setAnswersLatex(prev => [...prev, currentAnswerLatex]);
+                setCurrentAnswerLatex("");
+
+                if (audioRef.current) {
+                    audioRef.current.currentTime = 0;
+                    audioRef.current.play();
+                }
             }
         } catch (err) {
             // console.log(err)
         }
-    }, [latex]);
+    }, [currentAnswerLatex, setAnswersLatex, setCurrentQuestionIndex]);
 
     return (
         <div className="h-screen w-screen flex text-xl justify-center items-center">
-            <div 
-                className="flex flex-col-reverse items-end transition-transform"
-                style={{
-                    transform: `translateY(calc(${50 + 100*currentQuestionIndex}px - 50%))` 
-                }}
-            >
-                {
-                    questions.map((question: Function, questionIndex: number) => (
-                        <div 
-                            key={`question_${questionIndex}`}
-                            className="h-[100px] flex justify-center items-center"
-                        >
-                            <StaticMathField>
-                                {`\\frac{d}{dx}\\left(${question.latex}\\right)=`}
-                            </StaticMathField>
-                        </div>
-                    ))
-                }
-            </div>
-            <EditableMathField 
-                className="min-h-[60px] p-4 min-w-[300px]"
-                latex={latex} 
-                onChange={(mathField) => {
-                    setLatex(mathField.latex())
-                }}
-                config={{
-                    autoCommands: "pi sqrt"
-                }}
-            />
+            <audio ref={audioRef} hidden src="correct.wav" preload="auto"/>
+            <Questions {...{questions, currentQuestionIndex, answersLatex}} />
+            <AnswerField {...{currentAnswerLatex, setCurrentAnswerLatex}} />
         </div>
     )
 }
