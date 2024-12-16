@@ -10,7 +10,7 @@ type QuestionsProps = {
 export default function Questions({ questions, currentQuestionIndex, answersLatex }: QuestionsProps) {
     return (
         <div 
-            className="flex flex-col-reverse items-end transition-transform"
+            className="text-2xl flex flex-col-reverse items-end transition-transform"
             style={{
                 transform: `translateY(calc(${100 / questions.length}% * ${0.5 + currentQuestionIndex} - 50%))`
             }}

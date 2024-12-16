@@ -47,8 +47,14 @@ export default class QuestionGenerator {
         this.hidden = matrices[difficulty].hidden;
     }
 
-    public createQuestion(): Function {
-        return this.createExpression().simplified;
+    public createQuestions(count: number): Function[] {
+        const questions: Function[] = [];
+
+        for (let i = 0; i < count; i++) {
+            questions.push(this.createExpression().simplified);
+        }
+
+        return questions;
     }
 
     private createExpression(parentNodeIndex = 0, emitter = this.origEmitter): Function {

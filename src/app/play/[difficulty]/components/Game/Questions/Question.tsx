@@ -10,9 +10,9 @@ type QuestionProps = {
 export default function Question({ question, questionIndexDist, answerLatex }: QuestionProps) {
     return (
         <div
-            className="h-[100px] flex justif-center items-center relative"
+            className="h-[100px] flex justify-center items-center relative"
             style={{
-                opacity: Math.pow(0.5, questionIndexDist)
+                opacity: Math.pow(0.4, questionIndexDist)
             }}
         >
             <StaticMathField>
@@ -25,7 +25,7 @@ export default function Question({ question, questionIndexDist, answerLatex }: Q
                         <StaticMathField>
                             {answerLatex}
                         </StaticMathField>
-                        <img src="checkmark.png" className="h-[32px] ml-2"/>
+                        <img src="/checkmark.png" className="h-[32px] ml-2"/>
                     </div>
                 )
             }
