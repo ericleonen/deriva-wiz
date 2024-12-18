@@ -10,7 +10,8 @@ export type LinearConfig = {
 
 export type IntConfig = {
     magRange: [number, number],
-    neg: number
+    neg: number,
+    prevent?: number[]
 };
 
 export type FunctionGroup = {

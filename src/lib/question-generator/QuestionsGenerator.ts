@@ -121,33 +121,30 @@ export default class QuestionGenerator {
     private createLinearExpression(x: Function, config: LinearConfig): Function {
         const factorSign = uniform() < config.negFactor ? -1 : 1;
 
-        const mulFactorValue = 
+        let mulFactor = 
             uniform() < config.mulFactor && (
                 !(x instanceof Division) &&
                 !(x instanceof Exponentiation && !x.base) &&
                 !(x instanceof Addition) &&
                 !(x instanceof Subtraction)
-            ) ? uniformInt(
+            ) ? this.createInt({
                 // @ts-ignore
-                ...generate.linear.range.mulDiv
-            ) : 1;
-        const divFactorValue = 
-            uniform() < config.divFactor && 
-            !(x.hasFraction) ? uniformInt(
+                magRange: generate.linear.range.mulDiv,
+                neg: 0,
+            }) : null;
+        let divFactor = 
+            uniform() < config.divFactor && !(x.hasFraction)
+            ? this.createInt({
                 // @ts-ignore
-                ...generate.linear.range.mulDiv
-            ): 1;
+                magRange: generate.linear.range.mulDiv,
+                neg: 0,
+                prevent: mulFactor ? [(mulFactor as Integer).value] : undefined
+            }): null;
         
-        let mulFactor: Function | null = null;
-        let divFactor: Function | null = null;
-        
-        if (mulFactorValue !== 1 && divFactorValue !== 1) {
-            mulFactor = new Division(new Integer(mulFactorValue), new Integer(divFactorValue));
-        } else if (mulFactorValue !== 1) {
-            mulFactor = new Integer(mulFactorValue);
-        } else if (divFactorValue !== 1) {
-            divFactor = new Integer(divFactorValue);
-        } 
+        if (mulFactor && divFactor) {
+            mulFactor = new Division(mulFactor, divFactor);
+            divFactor = null;
+        }
 
         if (mulFactor) {
             x = new Multiplication(mulFactor, x);
@@ -157,19 +154,17 @@ export default class QuestionGenerator {
 
         if (factorSign === -1) x = new Negation(x);
 
-        const constantValue = uniform() < config.constant && (
+        const constant = uniform() < config.constant && (
             !(x instanceof Addition) &&
             !(x instanceof Subtraction)
-        ) ? uniformInt(
+        ) ? this.createInt({
             // @ts-ignore
-            ...generate.linear.range.addSub
-        ) : 0;
-        const constantSign = uniform() < config.negativeConstant ? -1 : 1;
+            magRange: generate.linear.range.addSub,
+            neg: 0
+        }) : null;
 
-        if (constantValue) {
-            const constant = new Integer(constantValue);
-
-            if (constantSign === 1) {
+        if (constant) {
+            if (uniform() < config.negativeConstant) {
                 x = new Addition(x, constant);
             } else { // constantSign === -1
                 x = new Subtraction(x, constant);
@@ -222,7 +217,7 @@ export default class QuestionGenerator {
                 expression = new Exponentiation(expConstant, x);
                 break;
             case "pow":
-                const powConstant = this.createInt({ magRange: [2, 9], neg: 0.2 });
+                const powConstant = this.createInt({ magRange: [2, 9], neg: 0.1 });
                 expression = new Exponentiation(x, powConstant);
                 break;
             case "nat_log":
@@ -323,7 +318,15 @@ export default class QuestionGenerator {
      * the given "neg" probability.
      */
     private createInt(config: IntConfig): Function {
-        const int = new Integer(uniformInt(...config.magRange));
+        let val = uniformInt(...config.magRange);
+        while (config.prevent && config.prevent.includes(val)) {
+            val++;
+
+            if (val > config.magRange[1]) {
+                val = config.magRange[0]
+            }
+        }
+        const int = new Integer(val);
 
         return uniform() < config.neg ? new Negation(int) : int;
     }
