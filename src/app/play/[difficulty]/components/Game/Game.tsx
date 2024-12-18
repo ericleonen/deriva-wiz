@@ -41,6 +41,7 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
                 setCurrentAnswerLatex("");
             }
         } catch (err) {
+            // console.log(currentAnswerLatex);
             // console.log(err)
         }
     }, [currentAnswerLatex, setAnswersLatex, setCurrentQuestionIndex, playAudio]);

@@ -20,6 +20,7 @@ export default class Division extends Function {
 
         this.top = top;
         this.bottom = bottom;
+        this.hasFraction = true;
     }
 
     public eval(x: number): number | undefined {

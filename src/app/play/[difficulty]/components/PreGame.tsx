@@ -9,7 +9,7 @@ type PreGameProps = {
 
 export default function PreGame({ difficulty, setScene }: PreGameProps) {
     return (
-        <div className="border-2 border-b-4 border-black flex flex-col w-[20rem] pb-3 rounded-md bg-white overflow-hidden">
+        <div className="border-2 border-b-4 border-black flex flex-col w-[22rem] pb-3 rounded-md bg-white overflow-hidden">
             <p 
                 className="w-full text-center p-2 font-bold text-xl border-b-2 border-black"
                 style={{

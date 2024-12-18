@@ -17,7 +17,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <body
                 className={`${montserratFont.className}`}
             >
-                <div className="h-screen w-screen flex justify-center items-center bg-gray-200">
+                <div className="h-screen w-screen flex justify-center items-center bg-gray-200 overflow-hidden">
                     {children}
                 </div>
             </body>

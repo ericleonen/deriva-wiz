@@ -1,0 +1,110 @@
+{
+    "questions": {
+        "easierQuestion": 0.33,
+        "combinationRelativeLikelihoods": {
+            "intermediate": [6, 1, 1, 3, 2],
+            "hard": [6, 2, 2, 4, 3]
+        },
+        "functionGroups": {
+            "easy": [
+                {
+                    "functions": ["nat_exp", "pow", "nat_log"],
+                    "relativeLikelihood": 3
+                }, {
+                    "functions": ["sin", "cos"],
+                    "relativeLikelihood": 2
+                }, {
+                    "functions": ["sqrt", "flip"],
+                    "relativeLikelihood": 1
+                }
+            ],
+            "intermediate": {
+                "easier": [
+                    {
+                        "functions": ["tan", "sec"],
+                        "relativeLikelihood": 2
+                    }, {
+                        "functions": ["csc", "cot"],
+                        "relativeLikelihood": 1
+                    }
+                ],
+                "combination": [
+                    {
+                        "functions": ["id", "nat_exp", "pow", "nat_log", "sin", "cos"],
+                        "relativeLikelihood": 6
+                    }, {
+                        "functions": ["sqrt", "flip", "sec", "tan"],
+                        "relativeLikelihood": 2
+                    }, {
+                        "functions": ["cot", "csc"],
+                        "relativeLikelihood": 1
+                    }
+                ] 
+            },
+            "hard": {
+                "easier": [
+                    {
+                        "functions": ["arcsin", "arccos", "arctan"],
+                        "relativeLikelihood": 1
+                    }, {
+                        "functions": ["exp", "log"],
+                        "relativeLikelihood": 1
+                    },
+                    {
+                        "functions": ["tan", "sec"],
+                        "relativeLikelihood": 1
+                    }, {
+                        "functions": ["csc", "cot"],
+                        "relativeLikelihood": 1
+                    }
+                ],
+                "combination": [
+                    {
+                        "functions": ["id", "nat_exp", "pow", "nat_log", "sin", "cos"],
+                        "relativeLikelihood": 8
+                    }, {
+                        "functions": ["sqrt", "flip", "sec", "tan"],
+                        "relativeLikelihood": 4
+                    }, {
+                        "functions": ["cot", "csc", "arcsin", "arccos", "arctan"],
+                        "relativeLikelihood": 2
+                    }, {
+                        "functions": ["exp", "log"],
+                        "relativeLikelihood": 1
+                    }
+                ]
+            }
+        }
+    },
+    "linear": {
+        "preset": {
+            "inner": {
+                "light": {
+                    "negFactor": 0.05,
+                    "mulFactor": 0.1,
+                    "divFactor": 0.1,
+                    "constant": 0.01,
+                    "negativeConstant": 0.3
+                },
+                "heavy": {
+                    "negFactor": 0.1,
+                    "mulFactor": 0.2,
+                    "divFactor": 0.2,
+                    "constant": 0.1,
+                    "negativeConstant": 0.3
+                }
+            },
+            "outer": {
+                "negFactor": 0.2,
+                "mulFactor": 0.2,
+                "divFactor": 0.2,
+                "constant": 0.2,
+                "negativeConstant": 0.3
+            }
+        },
+        "range": {
+            "mulDiv": [2, 9],
+            "addSub": [1, 9]
+        }
+    }
+}

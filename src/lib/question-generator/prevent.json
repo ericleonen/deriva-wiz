@@ -1,0 +1,73 @@
+{
+    "combination": {
+        "chain": {
+            "innerFraction": ["nat_exp", "exp", "flip"]
+        },
+        "mulDiv": ["flip"],
+        "betweenFunction": {
+            "id": {
+                "chain": ["id"],
+                "mulDiv": ["id", "pow"]
+            },
+            "sqrt": {
+                "chain": ["sqrt", "pow"],
+                "mulDiv": ["sqrt", "pow"]
+            },
+            "flip": {
+                "chain": ["flip"]
+            },
+            "nat_exp": {
+                "chain": ["exp", "nat_log", "log", "flip", "pow"],
+                "mulDiv": ["exp", "nat_exp"]
+            },
+            "exp": {
+                "chain": ["exp", "flip", "nat_log", "log", "pow"],
+                "mulDiv": ["exp", "nat_exp"]
+            },
+            "pow": {
+                "chain": ["pow", "sqrt"],
+                "mulDiv": ["pow", "sqrt", "id"]
+            },
+            "nat_log": {
+                "chain": ["exp", "nat_exp", "log"],
+                "mulDiv": ["nat_log", "log"]
+            },
+            "log": {
+                "chain": ["exp", "nat_exp", "log", "nat_log"],
+                "mulDiv": ["nat_log", "log"]
+            },
+            "sin": {
+                "chain": ["arcsin", "arccos", "arctan"],
+                "mulDiv": ["csc"]
+            },
+            "cos": {
+                "chain": ["arcsin", "arccos", "arctan"],
+                "mulDiv": ["sec"]
+            },
+            "tan": {
+                "chain": ["arcsin", "arccos", "arctan"],
+                "mulDiv": ["cot"]
+            },
+            "csc": {
+                "chain": ["arcsin", "arccos", "arctan"],
+                "mulDiv": ["sin"]
+            },
+            "sec": {
+                "chain": ["arcsin", "arccos", "arctan"],
+                "mulDiv": ["cos"]
+            },
+            "cot": {
+                "chain": ["arcsin", "arccos", "arctan"]
+            },
+            "arcsin": {
+                "chain": ["arcsin", "arccos", "arctan", "sin", "cos", "tan", "csc", "sec", "cot"]
+            },
+            "arccos": {
+                "chain": ["arcsin", "arccos", "arctan", "sin", "cos", "tan", "csc", "sec", "cot"]
+            },
+            "arctan": {
+                "chain": ["arcsin", "arccos", "arctan", "sin", "cos", "tan", "csc", "sec", "cot"]
+            }
+        }
+    }
+}

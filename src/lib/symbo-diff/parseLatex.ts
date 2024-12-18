@@ -49,7 +49,7 @@ const SYMBOLS = {
     ).split(" "),
     BINARY_PRE: (
         "\\frac \\ln^ \\log_ " +
-        "\\sin^ \\cos^ \\tan^ \\csc^ \\sec^ \\cot^" +
+        "\\sin^ \\cos^ \\tan^ \\csc^ \\sec^ \\cot^ " +
         "\\arcsin^ \\arccos^ \\arctan^"
     ).split(" ")
 }

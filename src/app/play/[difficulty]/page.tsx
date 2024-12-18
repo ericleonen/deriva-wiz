@@ -1,6 +1,6 @@
 "use client"
 
-import QuestionGenerator from "@/lib/question-generator/QuestionGenerator";
+import QuestionGenerator from "@/lib/question-generator/QuestionsGenerator";
 import Game from "./components/Game";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ import { addStyles } from "react-mathquill";
 import PostGame from "./components/PostGame";
 import Audio from "./components/Audio";
 
-if (window) addStyles();
+if (typeof window !== "undefined") addStyles();
 
 export default function PlayPage() {
     const { difficulty } = useParams<{ difficulty: Difficulty }>();

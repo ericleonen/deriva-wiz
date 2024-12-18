@@ -1,12 +1,13 @@
 import { IS_EQUAL_NUM_SAMPLES, IS_EQUAL_TOLERANCE, IS_EQUAL_UPPER_BOUND } from "./config";
 import Constant from "./operands/Constant";
+import Division from "./operators/basic/Division";
 
 /**
  * A differentiable univariate function. 
  */
 export default abstract class Function {
     public isConstant: boolean;
-    // TODO: Decide a way to store the domain of a function
+    public hasFraction: boolean;
 
     /**
      * Initializes a function with the given operands.
@@ -14,6 +15,10 @@ export default abstract class Function {
     public constructor(...operands: Function[]) {
         this.isConstant = operands.every(operand => (
             operand instanceof Constant || operand.isConstant
+        ));
+
+        this.hasFraction = operands.some(operand => (
+            operand.hasOwnProperty("top") || operand.hasFraction
         ));
     }
 
@@ -60,17 +65,22 @@ export default abstract class Function {
             const otherY = other.eval(x);
 
             if (thisY !== undefined && otherY !== undefined) {
-                const maxMagnitude = Math.max(Math.abs(thisY), Math.abs(otherY));
+                const maxMagnitude = Math.max(1, Math.max(Math.abs(thisY), Math.abs(otherY)));
 
                 if (Math.abs(thisY - otherY) / maxMagnitude > IS_EQUAL_TOLERANCE) {
+                    // console.log(`Relative difference of ${Math.abs(thisY - otherY) / maxMagnitude} at x=${x}`);
                     return false;
                 }
-            } else if (thisY === undefined || otherY === undefined) {
+            } else if (
+                (thisY === undefined && otherY !== undefined) ||
+                (otherY === undefined && thisY !== undefined)
+            ) {
                 domainMismatchCount++;
             }
         }
 
-        if (domainMismatchCount === IS_EQUAL_NUM_SAMPLES) {
+        if (domainMismatchCount >= IS_EQUAL_NUM_SAMPLES * 0.5) {
+            // console.log("Domain mismatches: " + domainMismatchCount);
             return false;
         } else {
             return true;

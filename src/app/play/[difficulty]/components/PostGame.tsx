@@ -31,14 +31,14 @@ export default function PostGame({ gameMs, playAudio, difficulty, setScene }: Po
 
     return (
         <>
-            <div className="border-2 border-b-4 border-black flex flex-col w-[20rem] pb-3 rounded-md bg-white overflow-hidden">
+            <div className="border-2 border-b-4 border-black flex flex-col w-[22rem] pb-3 rounded-md bg-white overflow-hidden">
                 <p
                     className="w-full text-center p-2 font-bold text-xl border-b-2 border-black"
                     style={{
                         backgroundColor: difficultyColors[difficulty]
                     }}
                 >
-                    {capitalize(difficulty)} mode complete!
+                    {capitalize(difficulty)} Mode Complete!
                 </p>
                 <p className="p-3 font-medium text-center text-lg">
                     You solved 20 derivatives with a time of{" "}

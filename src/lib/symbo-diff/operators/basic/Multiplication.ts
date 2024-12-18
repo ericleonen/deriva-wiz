@@ -100,7 +100,10 @@ export default class Multiplication extends Function {
         const rightLatex = parenthesize(
             this.right.latex,
             this.right instanceof Addition || this.right instanceof Subtraction || 
-            this.right instanceof Negation
+            this.right instanceof Negation || (
+                this.right instanceof Multiplication && this.right.left instanceof Exponentiation &&
+                this.right.left.base instanceof Integer
+            )
         );
 
         return `${leftLatex}${rightLatex}`;
