@@ -217,7 +217,7 @@ export default class QuestionGenerator {
                 expression = new Exponentiation(expConstant, x);
                 break;
             case "pow":
-                const powConstant = this.createInt({ magRange: [2, 9], neg: 0.1 });
+                const powConstant = this.createInt({ magRange: [2, 9], neg: 0.05 });
                 expression = new Exponentiation(x, powConstant);
                 break;
             case "nat_log":

@@ -12,6 +12,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      boxShadow: {
+        DEFAULT: "4px 4px black",
+        sm: "2px 2px black"
+      }
     },
   },
   plugins: [],

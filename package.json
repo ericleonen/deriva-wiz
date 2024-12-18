@@ -10,6 +10,7 @@
     "buildMatrix": "node src/lib/question-generator/matrices/buildMatrix.mjs"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@types/numjs": "^0.16.8",
     "jotai": "^2.10.3",
     "mathjs": "^14.0.0",

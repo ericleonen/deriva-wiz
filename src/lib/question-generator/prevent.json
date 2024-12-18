@@ -3,7 +3,7 @@
         "chain": {
             "innerFraction": ["nat_exp", "exp", "flip"]
         },
-        "mulDiv": ["flip"],
+        "mulDiv": ["flip", "exp"],
         "betweenFunction": {
             "id": {
                 "chain": ["id"],
@@ -22,7 +22,7 @@
             },
             "exp": {
                 "chain": ["exp", "flip", "nat_log", "log", "pow"],
-                "mulDiv": ["exp", "nat_exp"]
+                "mulDiv": ["nat_exp"]
             },
             "pow": {
                 "chain": ["pow", "sqrt"],

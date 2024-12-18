@@ -20,12 +20,14 @@ export default function PlayPage() {
     const [scene, setScene] = useState<Scene>("pregame");
     const [gameMs, setGameMs] = useState<number>(0);
     const [currentAudio, playAudio] = useState<PlayableAudio | null>(null);
+    const [skips, setSkips] = useState(0);
 
     useEffect(() => {
         if (scene === "pregame" && difficulty && (questions.length === 0 || gameMs > 0)) {
             const generator = new QuestionGenerator(difficulty);
             setQuestions(generator.createQuestions(20));
             setGameMs(0);
+            setSkips(0);
         }
     }, [scene, difficulty, questions, setQuestions, gameMs]);
 
@@ -39,10 +41,10 @@ export default function PlayPage() {
             currentScene = <Countdown {...{setScene, playAudio}} />;
             break;
         case "game":
-            currentScene = <Game {...{questions, gameMs, setGameMs, setScene, playAudio}} />;
+            currentScene = <Game {...{questions, gameMs, setGameMs, setScene, playAudio, skips, setSkips}} />;
             break
         default: // case "postgame"
-            currentScene = <PostGame {...{gameMs, playAudio, difficulty, setScene}} />;
+            currentScene = <PostGame {...{gameMs, playAudio, difficulty, setScene, skips}} />;
     }
 
     return (

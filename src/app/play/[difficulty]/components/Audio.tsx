@@ -19,6 +19,7 @@ export default function Audio({ currentAudio, setCurrentAudio }: AudioProps) {
     const countdown1Ref = useRef<HTMLAudioElement>(null);
     const countdown2Ref = useRef<HTMLAudioElement>(null);
     const correctRef = useRef<HTMLAudioElement>(null);
+    const skipRef = useRef<HTMLAudioElement>(null);
     const gameoverRef = useRef<HTMLAudioElement>(null);
 
     useEffect(() => {
@@ -34,6 +35,9 @@ export default function Audio({ currentAudio, setCurrentAudio }: AudioProps) {
             case "correct":
                 playAudio(correctRef);
                 break;
+            case "skip":
+                playAudio(skipRef);
+                break;
             default: // case "gameover"
                 playAudio(gameoverRef);
 
@@ -48,6 +52,7 @@ export default function Audio({ currentAudio, setCurrentAudio }: AudioProps) {
             <audio ref={countdown1Ref} hidden src="/countdown_pt1.wav" preload="auto"/>
             <audio ref={countdown2Ref} hidden src="/countdown_pt2.wav" preload="auto"/>
             <audio ref={correctRef} hidden src="/correct.wav" preload="auto"/>
+            <audio ref={skipRef} hidden src="/skip.wav" preload="auto"/>
             <audio ref={gameoverRef} hidden src="/gameover.wav" preload="auto"/>
         </>
     )

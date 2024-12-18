@@ -1,5 +1,11 @@
+let last = -1;
 export function uniform(min: number = 0, max: number = 1): number {
-    return Math.random() * (max - min) + min;
+    const rand = Math.random() * (max - min) + min;
+
+    if (Math.abs(rand - last) < 0.1) return uniform(min, max);
+    
+    last = rand;
+    return rand;
 }
 
 export function uniformInt(min: number, max: number): number {
