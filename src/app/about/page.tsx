@@ -1,19 +1,15 @@
 import { HomeIcon } from "@heroicons/react/16/solid";
-import Link from "next/link";
-
-const smallButtonClassName = "h-12 w-12 rounded-sm bg-white border-2 border-black shadow flex items-center justify-center active:scale-95 hover:bg-amber-400 active:bg-amber-400";
+import TinyButton from "../components/TinyButton";
 
 export default function AboutPage() {
     return (
         <div className="w-full h-full overflow-scroll py-12 flex items-center">
             <div className="flex flex-col w-[30rem] mx-auto">
                 <div className="flex">
-                    <Link 
-                        className={smallButtonClassName}
+                    <TinyButton
+                        Icon={HomeIcon}
                         href="/"
-                    >
-                        <HomeIcon className="h-6 w-6"/>
-                    </Link>
+                    />
                     <h2 className="bg-white ml-3 pr-[3.75rem] text-xl font-bold flex-1 h-12 border-2 border-black shadow flex items-center justify-center">
                         About
                     </h2>

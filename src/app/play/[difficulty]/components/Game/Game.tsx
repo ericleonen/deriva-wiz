@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import AnswerField from "./AnswerField";
 import Questions from "./Questions";
 import { PlayableAudio, Scene } from "../../types";
-import Link from "next/link";
+import TinyButton from "@/app/components/TinyButton";
 
 type GameProps = {
     questions: Function[],
@@ -17,8 +17,6 @@ type GameProps = {
     skips: number,
     setSkips: React.Dispatch<React.SetStateAction<number>>
 }
-
-const smallButtonClassName = "font-bold h-12 w-16 rounded-sm border-2 border-black shadow flex items-center justify-center active:scale-95";
 
 function formatGameMs(gameMs: number, skips: number): string {
     gameMs += 30 * 1000 * skips;
@@ -85,12 +83,10 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
     return (
         <>
             <div className="z-20 absolute top-3 left-1/2 translate-x-[-50%] w-[30rem] flex">
-                <Link 
+                <TinyButton
+                    label="Quit"
                     href="/"
-                    className={`bg-gray-200 hover:bg-gray-300 ${smallButtonClassName}`}
-                >
-                    Quit
-                </Link>
+                />
                 <p 
                     className="font-semibold text-xl transition-colors mx-3 h-12 flex-1 flex justify-center items-center bg-white border-2 shadow border-black rounded-sm"
                     style={ skipping ? {
@@ -100,8 +96,8 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
                 >
                     {formatGameMs(gameMs, skips)}
                 </p>
-                <button
-                    className={`bg-red-400 hover:bg-red-500 ${smallButtonClassName}`}
+                <TinyButton 
+                    label="Skip"
                     onClick={() => {
                         setCurrentQuestionIndex(prev => prev + 1);
                         setAnswersLatex(prev => [...prev, ""]);
@@ -110,9 +106,8 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
                         setSkips(prev => Math.min(prev + 1, questions.length))
                         playAudio("skip");
                     }}
-                >
-                    Skip
-                </button>
+                    difficulty="hard"
+                />
             </div>
             <Questions {...{questions, currentQuestionIndex, answersLatex}} />
             <AnswerField 

@@ -1,11 +1,9 @@
 import { useEffect } from "react"
 import { Difficulty, PlayableAudio, Scene } from "../types"
 import { difficultyColors } from "../uiConfig";
-import Link from "next/link";
 import { capitalize } from "../utils";
 import { ArrowUturnLeftIcon, HomeIcon } from "@heroicons/react/16/solid";
-
-const smallButtonClassName = "h-12 w-12 rounded-sm bg-white border-2 border-black shadow flex items-center justify-center hover:!bg-amber-300 active:scale-95 active:!bg-amber-300";
+import TinyButton from "@/app/components/TinyButton";
 
 type PostGameProps = {
     gameMs: number,
@@ -36,16 +34,12 @@ export default function PostGame({ gameMs, playAudio, difficulty, setScene, skip
     return (
         <div className="flex flex-col w-[30rem]">
             <div className="flex">
-                <Link 
+                <TinyButton 
+                    Icon={HomeIcon}
                     href="/"
-                    className={smallButtonClassName}
-                    style={{
-                        backgroundColor: difficultyColors[difficulty]
-                    }}
+                    difficulty={difficulty}
                     title="Home"
-                >
-                    <HomeIcon className="h-6 w-6" />
-                </Link>
+                />
                 <h1
                     className="w-full h-12 flex-1 mx-3 flex items-center justify-center font-bold text-xl border-2 shadow border-black"
                     style={{
@@ -54,16 +48,12 @@ export default function PostGame({ gameMs, playAudio, difficulty, setScene, skip
                 >
                     {capitalize(difficulty)} Mode Done!
                 </h1>
-                <button
-                    className={smallButtonClassName}
-                    style={{
-                        backgroundColor: difficultyColors[difficulty]
-                    }}
+                <TinyButton
+                    Icon={ArrowUturnLeftIcon}
                     onClick={() => setScene("pregame")}
+                    difficulty={difficulty}
                     title="Play again"
-                >
-                    <ArrowUturnLeftIcon className="h-6 w-6"/>
-                </button>
+                />
             </div>
             <div className="mt-3 border-2 shadow border-black flex flex-col w-full p-6 rounded-sm bg-white overflow-hidden">
                 <p className="font-medium text-lg">

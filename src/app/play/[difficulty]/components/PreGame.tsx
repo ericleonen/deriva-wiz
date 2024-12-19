@@ -4,29 +4,25 @@ import { difficultyColors } from "../uiConfig"
 import { capitalize } from "../utils"
 import Link from "next/link"
 import { StaticMathField } from "react-mathquill"
+import TinyButton from "@/app/components/TinyButton"
 
 type PreGameProps = {
     difficulty: Difficulty,
     setScene: React.Dispatch<React.SetStateAction<Scene>>
 }
 
-const smallButtonClassName = "h-12 w-12 rounded-sm bg-white border-2 border-black shadow flex items-center justify-center hover:!bg-amber-300 active:scale-95 active:!bg-amber-300";
 const linkClassName = "text-blue-500 hover:text-blue-600 underline"
 
 export default function PreGame({ difficulty, setScene }: PreGameProps) {
     return (
         <div className="w-[30rem] flex-col">
             <div className="flex">
-                <Link 
+                <TinyButton 
+                    Icon={HomeIcon}
                     href="/"
-                    className={smallButtonClassName}
-                    style={{
-                        backgroundColor: difficultyColors[difficulty]
-                    }}
+                    difficulty={difficulty}
                     title="Home"
-                >
-                    <HomeIcon className="h-6 w-6" />
-                </Link>
+                />
                 <h1 
                     className="mx-3 h-12 flex flex-1 justify-center items-center font-bold text-xl shadow border-2 border-black rounded-sm"
                     style={{
@@ -35,16 +31,12 @@ export default function PreGame({ difficulty, setScene }: PreGameProps) {
                 >
                     {capitalize(difficulty)} Mode
                 </h1>
-                <Link
+                <TinyButton 
+                    Icon={BookOpenIcon}
                     href={"/cheatsheet#" + difficulty}
-                    className={smallButtonClassName}
-                    style={{
-                        backgroundColor: difficultyColors[difficulty]
-                    }}
+                    difficulty={difficulty}
                     title={`${capitalize(difficulty)} Derivative Cheatsheet`}
-                >
-                    <BookOpenIcon className="h-6 w-6" />
-                </Link>
+                />
             </div>
             <div className="mt-3 border-2 shadow border-black flex flex-col w-full p-6 rounded-sm bg-white">
                 <p className="font-medium text-lg">

@@ -2,7 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+	--theme-easy: #80E580;
+	--theme-intermediate: #FF964F;
+	--theme-hard: #FF6961;
+}
+
 * {
 	padding: 0;
 	margin: 0;
+}
+
+@layer components {
+	.brutal-box {
+		@apply border-2 border-black rounded-sm shadow;
+	}
+	.brutal-box-sm {
+		@apply border-2 border-black rounded-sm shadow-sm;
+	}
+	.button {
+		@apply hover:!bg-amber-300 active:scale-95 active:!bg-amber-300;
+	}
 }
