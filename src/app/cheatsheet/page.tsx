@@ -1,7 +1,6 @@
 "use client"
 
 import { addStyles, StaticMathField } from "react-mathquill";
-import { difficultyColors } from "../play/[difficulty]/uiConfig";
 import { capitalize } from "../play/[difficulty]/utils";
 import rules from "./rules.json";
 import React, { useEffect } from "react";
@@ -10,6 +9,7 @@ import TinyButton from "../components/Header/TinyButton";
 import { Difficulty } from "../types";
 import Header from "../components/Header";
 import HeaderLabel from "../components/Header/HeaderLabel";
+import Content from "../components/Content";
 
 const difficulties: Difficulty[] = ["easy", "intermediate", "hard"];
 
@@ -43,7 +43,7 @@ export default function CheatsheetPage() {
                                     title={`Play ${capitalize(difficulty)} Mode`}
                                 />
                             </Header>
-                            <div className="bg-white border-2 border-black shadow p-3 pb-3">
+                            <Content>
                                 {
                                     rules[difficulty]?.map(rule => (
                                         <div className="flex items-center hover:bg-gray-200 p-3 rounded-sm" key={rule.name}>
@@ -52,7 +52,7 @@ export default function CheatsheetPage() {
                                         </div>
                                     ))
                                 }
-                            </div>
+                            </Content>
                         </div>
                     ))
                 }

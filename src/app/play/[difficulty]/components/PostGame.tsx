@@ -4,6 +4,9 @@ import { difficultyColors } from "../uiConfig";
 import { capitalize } from "../utils";
 import { ArrowUturnLeftIcon, HomeIcon } from "@heroicons/react/16/solid";
 import TinyButton from "@/app/components/Header/TinyButton";
+import Header from "@/app/components/Header";
+import HeaderLabel from "@/app/components/Header/HeaderLabel";
+import Content from "@/app/components/Content";
 
 type PostGameProps = {
     gameMs: number,
@@ -33,29 +36,25 @@ export default function PostGame({ gameMs, playAudio, difficulty, setScene, skip
 
     return (
         <div className="flex flex-col w-[30rem]">
-            <div className="flex">
+            <Header className="mb-3">
                 <TinyButton 
                     Icon={HomeIcon}
                     href="/"
                     difficulty={difficulty}
                     title="Home"
                 />
-                <h1
-                    className="w-full h-12 flex-1 mx-3 flex items-center justify-center font-bold text-xl border-2 shadow border-black"
-                    style={{
-                        backgroundColor: difficultyColors[difficulty]
-                    }}
-                >
-                    {capitalize(difficulty)} Mode Done!
-                </h1>
+                <HeaderLabel
+                    label={capitalize(difficulty) + " Mode Done!"}
+                    difficulty={difficulty}
+                />
                 <TinyButton
                     Icon={ArrowUturnLeftIcon}
                     onClick={() => setScene("pregame")}
                     difficulty={difficulty}
                     title="Play again"
                 />
-            </div>
-            <div className="mt-3 border-2 shadow border-black flex flex-col w-full p-6 rounded-sm bg-white overflow-hidden">
+            </Header>
+            <Content className="!p-6">
                 <p className="font-medium text-lg">
                     You solved{" "}
                     <span className="font-semibold">{20 - skips} out of 20</span>{" "}
@@ -68,7 +67,7 @@ export default function PostGame({ gameMs, playAudio, difficulty, setScene, skip
                     }
                 </p>
                 <p className="font-bold mt-3 text-xl text-center">Total time: {formatGameMs(gameMs + 30 * 1000 * skips)}</p>
-            </div>
+            </Content>
         </div>
     )
 }

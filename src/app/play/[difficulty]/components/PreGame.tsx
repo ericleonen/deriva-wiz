@@ -1,12 +1,12 @@
 import { BookOpenIcon, HomeIcon } from "@heroicons/react/16/solid"
 import { Difficulty, Scene } from "../types"
-import { difficultyColors } from "../uiConfig"
 import { capitalize } from "../utils"
 import Link from "next/link"
 import { StaticMathField } from "react-mathquill"
 import TinyButton from "@/app/components/Header/TinyButton"
 import Header from "@/app/components/Header"
 import HeaderLabel from "@/app/components/Header/HeaderLabel"
+import Content from "@/app/components/Content"
 
 type PreGameProps = {
     difficulty: Difficulty,
@@ -36,7 +36,7 @@ export default function PreGame({ difficulty, setScene }: PreGameProps) {
                     title={`${capitalize(difficulty)} Derivative Cheatsheet`}
                 />
             </Header>
-            <div className="border-2 shadow border-black flex flex-col w-full p-6 rounded-sm bg-white">
+            <Content className="!p-6">
                 <p className="font-medium text-lg">
                     Solve the 20 derivatives as fast as you can.<br /><br />
                     Enter your answers in the math input field just as you would type an expression into{" "}
@@ -52,7 +52,7 @@ export default function PreGame({ difficulty, setScene }: PreGameProps) {
                 >
                     Begin
                 </button>
-            </div>
+            </Content>
         </div>
     )
 }

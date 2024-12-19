@@ -4,6 +4,7 @@ import { BookOpenIcon } from "@heroicons/react/16/solid";
 import TinyButton from "../components/Header/TinyButton";
 import Header from "../components/Header";
 import HeaderLabel from "../components/Header/HeaderLabel";
+import Content from "../components/Content";
 
 export default function HomePage() {
 	return (
@@ -25,7 +26,7 @@ export default function HomePage() {
 					title="Derivative Cheatsheet"
 				/>
 			</Header>
-			<div className="flex flex-col items-center w-full rounded-sm bg-white border-2 border-black shadow p-3">
+			<Content className="flex flex-col items-center">
 				<p className="mb-3 font-bold text-sm">Choose a difficulty</p>
 				<DifficultyButton 
 					difficulty="easy"
@@ -39,7 +40,7 @@ export default function HomePage() {
 					difficulty="hard"
 					description="Rare rules and tougher expressions"
 				/>
-			</div>
+			</Content>
 		</div>
 	)
 }
