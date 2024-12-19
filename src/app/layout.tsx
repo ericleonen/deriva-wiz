@@ -14,6 +14,9 @@ const montserratFont = Montserrat({
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
         <html lang="en">
+            <head>
+                <link rel="icon" href="/icon.ico" sizes="any" />
+            </head>
             <body
                 className={`${montserratFont.className}`}
             >
