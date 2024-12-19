@@ -22,7 +22,7 @@ export default function AnswerField({ currentAnswerLatex, setCurrentAnswerLatex 
     }, []);
 
     return (
-        <div className="text-2xl min-h-[60px] min-w-64 border-2 border-black rounded-sm shadow focus-within:bg-amber-300 bg-white">
+        <div className="text-2xl min-h-[60px] min-w-64 border-2 border-black rounded-sm shadow focus-within:ring-amber-300 ring-inset ring-2 bg-white">
             <EditableMathField
                 className="px-2 py-4 min-h-[60px] min-w-64 !border-none !shadow-none"
                 latex={currentAnswerLatex} 

@@ -42,6 +42,7 @@ export default function PostGame({ gameMs, playAudio, difficulty, setScene, skip
                     style={{
                         backgroundColor: difficultyColors[difficulty]
                     }}
+                    title="Home"
                 >
                     <HomeIcon className="h-6 w-6" />
                 </Link>
@@ -59,8 +60,9 @@ export default function PostGame({ gameMs, playAudio, difficulty, setScene, skip
                         backgroundColor: difficultyColors[difficulty]
                     }}
                     onClick={() => setScene("pregame")}
+                    title="Play again"
                 >
-                    <ArrowUturnLeftIcon className="h-6 w-6" />
+                    <ArrowUturnLeftIcon className="h-6 w-6"/>
                 </button>
             </div>
             <div className="mt-3 border-2 shadow border-black flex flex-col w-full p-6 rounded-sm bg-white overflow-hidden">

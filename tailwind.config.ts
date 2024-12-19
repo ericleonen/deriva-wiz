@@ -15,6 +15,16 @@ export default {
       boxShadow: {
         DEFAULT: "4px 4px black",
         sm: "2px 2px black"
+      },
+      keyframes: {
+        levitate: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "33%": { transform: "translateY(8px)" },
+          "66%": { transform: "translateY(-8px)" },
+        }
+      },
+      animation: {
+        levitate: 'levitate 1s linear infinite',
       }
     },
   },

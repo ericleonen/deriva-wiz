@@ -3,6 +3,7 @@ import { Difficulty, Scene } from "../types"
 import { difficultyColors } from "../uiConfig"
 import { capitalize } from "../utils"
 import Link from "next/link"
+import { StaticMathField } from "react-mathquill"
 
 type PreGameProps = {
     difficulty: Difficulty,
@@ -10,6 +11,7 @@ type PreGameProps = {
 }
 
 const smallButtonClassName = "h-12 w-12 rounded-sm bg-white border-2 border-black shadow flex items-center justify-center hover:!bg-amber-300 active:scale-95 active:!bg-amber-300";
+const linkClassName = "text-blue-500 hover:text-blue-600 underline"
 
 export default function PreGame({ difficulty, setScene }: PreGameProps) {
     return (
@@ -21,6 +23,7 @@ export default function PreGame({ difficulty, setScene }: PreGameProps) {
                     style={{
                         backgroundColor: difficultyColors[difficulty]
                     }}
+                    title="Home"
                 >
                     <HomeIcon className="h-6 w-6" />
                 </Link>
@@ -38,6 +41,7 @@ export default function PreGame({ difficulty, setScene }: PreGameProps) {
                     style={{
                         backgroundColor: difficultyColors[difficulty]
                     }}
+                    title={`${capitalize(difficulty)} Derivative Cheatsheet`}
                 >
                     <BookOpenIcon className="h-6 w-6" />
                 </Link>
@@ -45,7 +49,12 @@ export default function PreGame({ difficulty, setScene }: PreGameProps) {
             <div className="mt-3 border-2 shadow border-black flex flex-col w-full p-6 rounded-sm bg-white">
                 <p className="font-medium text-lg">
                     Solve the 20 derivatives as fast as you can.<br /><br />
-                    Enter your answers in the math input field just as you would type an expression into WebAssign or Desmos.
+                    Enter your answers in the math input field just as you would type an expression into{" "}
+                    <Link className={linkClassName} href="https://www.webassign.net/">WebAssign</Link>{" "}
+                    or <Link className={linkClassName} href="https://www.desmos.com/calculator">Desmos</Link>.{" "}
+                    If you've never heard of either, you might want to play around with{" "}
+                    <Link className={linkClassName} href="http://mathquill.com/">Mathquill</Link>.<br /><br />
+                    <span className="font-semibold">Note:</span> You can type a <StaticMathField>{"\\sqrt{}"}</StaticMathField> symbol by typing <code>sqrt</code>.
                 </p>
                 <button
                     onClick={() => { setScene("countdown") }}

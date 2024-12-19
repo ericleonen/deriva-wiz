@@ -30,6 +30,7 @@ export default function CheatsheetPage() {
                                         // @ts-ignore
                                         backgroundColor: difficultyColors[difficulty]
                                     }}
+                                    title="Home"
                                 >
                                     <HomeIcon className="h-6 w-6" />
                                 </Link>
@@ -49,6 +50,7 @@ export default function CheatsheetPage() {
                                         // @ts-ignore
                                         backgroundColor: difficultyColors[difficulty]
                                     }}
+                                    title={`Play ${capitalize(difficulty)} Mode`}
                                 >
                                     <PlayIcon className="h-6 w-6" />
                                 </Link>
