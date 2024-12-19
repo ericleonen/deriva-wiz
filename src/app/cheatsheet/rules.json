@@ -1,0 +1,107 @@
+{
+    "easy": [
+        {
+            "name": "Constant",
+            "function": "n",
+            "derivative": "0"
+        }, {
+            "name": "Identity",
+            "function": "x",
+            "derivative": "1"
+        }, {
+            "name": "Constant multiple",
+            "function": "nx",
+            "derivative": "n"
+        }, {
+            "name": "Power",
+            "function": "x^n",
+            "derivative": "nx^{n-1}"
+        }, {
+            "name": "Natural exponential",
+            "function": "e^x",
+            "derivative": "e^x"
+        }, {
+            "name": "Natural logarithm",
+            "function": "\\ln\\left(x\\right)",
+            "derivative": "\\frac{1}{x}"
+        }, {
+            "name": "Square root",
+            "function": "\\sqrt{x}",
+            "derivative": "\\frac{1}{2\\sqrt{x}}"
+        }, {
+            "name": "Reciprocal",
+            "function": "\\frac{1}{x}",
+            "derivative": "-\\frac{1}{x^2}"
+        }, {
+            "name": "Sine",
+            "function": "\\sin\\left(x\\right)",
+            "derivative": "\\cos\\left(x\\right)"
+        },{
+            "name": "Cosine",
+            "function": "\\cos\\left(x\\right)",
+            "derivative": "-\\sin\\left(x\\right)"
+        }, {
+            "name": "Chain",
+            "function": "f\\left(g\\left(x\\right)\\right)",
+            "derivative": "f'\\left(g\\left(x\\right)\\right)g'\\left(x\\right)"
+        }, {
+            "name": "Addition",
+            "function": "f\\left(x\\right)+g\\left(x\\right)",
+            "derivative": "f'\\left(x\\right)+g'\\left(x\\right)"
+        }, {
+            "name": "Subtraction",
+            "function": "f\\left(x\\right)-g\\left(x\\right)",
+            "derivative": "f'\\left(x\\right)-g'\\left(x\\right)"
+        }
+    ],
+    "intermediate": [
+        {
+            "name": "Tangent",
+            "function": "\\tan\\left(x\\right)",
+            "derivative": "\\sec^2\\left(x\\right)"
+        }, {
+            "name": "Cosecant",
+            "function": "\\csc\\left(x\\right)",
+            "derivative": "-\\csc\\left(x\\right)\\cot\\left(x\\right)"
+        }, {
+            "name": "Secant",
+            "function": "\\sec\\left(x\\right)",
+            "derivative": "\\sec\\left(x\\right)\\tan\\left(x\\right)"
+        }, {
+            "name": "Cotangent",
+            "function": "\\cot\\left(x\\right)",
+            "derivative": "-\\csc^2\\left(x\\right)"
+        }, {
+            "name": "Product",
+            "function": "f\\left(x\\right)g\\left(x\\right)",
+            "derivative": "f\\left(x\\right)g'\\left(x\\right)+f'\\left(x\\right)g\\left(x\\right)"
+        }, {
+            "name": "Quotient",
+            "function": "\\frac{f\\left(x\\right)}{g\\left(x\\right)}",
+            "derivative": "\\frac{f'\\left(x\\right)g'\\left(x\\right)-f\\left(x\\right)g'\\left(x\\right)}{\\left[g(\\left(x\\right)\\right]^2}"
+        }
+    ],
+    "hard": [
+        {
+            "name": "Exponential",
+            "function": "n^x",
+            "derivative": "n^x\\ln\\left(x\\right)"
+        }, {
+            "name": "Logarithm",
+            "function": "\\log_{n}\\left(x\\right)",
+            "derivative": "\\frac{1}{x\\ln\\left(n\\right)}"
+        }, {
+            "name": "Arcsine",
+            "function": "\\arcsin\\left(x\\right)",
+            "derivative": "\\frac{1}{\\sqrt{1-x^2}}"
+        }, {
+            "name": "Arccos",
+            "function": "\\arccos\\left(x\\right)",
+            "derivative": "-\\frac{1}{\\sqrt{1-x^2}}"
+        }, {
+            "name": "Arctan",
+            "function": "\\arctan\\left(x\\right)",
+            "derivative": "\\frac{1}{1+x^2}"
+        }
+    ]
+}

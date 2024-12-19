@@ -32,14 +32,15 @@ export default function PreGame({ difficulty, setScene }: PreGameProps) {
                 >
                     {capitalize(difficulty)} Mode
                 </h1>
-                <button
+                <Link
+                    href={"/cheatsheet#" + difficulty}
                     className={smallButtonClassName}
                     style={{
                         backgroundColor: difficultyColors[difficulty]
                     }}
                 >
                     <BookOpenIcon className="h-6 w-6" />
-                </button>
+                </Link>
             </div>
             <div className="mt-3 border-2 shadow border-black flex flex-col w-full p-6 rounded-sm bg-white">
                 <p className="font-medium text-lg">
