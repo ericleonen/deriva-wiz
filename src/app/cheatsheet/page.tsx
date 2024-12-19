@@ -10,6 +10,7 @@ import { Difficulty } from "../types";
 import Header from "../components/Header";
 import HeaderLabel from "../components/Header/HeaderLabel";
 import Content from "../components/Content";
+import Title from "../components/Title";
 
 const difficulties: Difficulty[] = ["easy", "intermediate", "hard"];
 
@@ -21,7 +22,7 @@ export default function CheatsheetPage() {
     return (
         <div className="w-full h-full overflow-scroll py-12">
             <div className="flex flex-col w-[30rem] mx-auto">
-                <h1 className="text-2xl font-bold w-full p-3 border-2 border-black shadow text-center bg-amber-300">Deriva-Wiz Cheatsheet</h1>
+                <Title title="Derivative Cheatsheet" />
                 {
                     difficulties.map((difficulty: Difficulty) => (
                         <div id={difficulty} key={difficulty} className="mt-3 scroll-m-3">

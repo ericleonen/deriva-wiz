@@ -5,11 +5,12 @@ import TinyButton from "../components/Header/TinyButton";
 import Header from "../components/Header";
 import HeaderLabel from "../components/Header/HeaderLabel";
 import Content from "../components/Content";
+import Title from "../components/Title";
 
 export default function HomePage() {
 	return (
 		<div className="flex flex-col items-center w-[30rem]">
-			<h1 className="z-20 text-5xl font-bold p-3 rounded-sm w-full border-2 border-black shadow text-center bg-amber-300 ">Deriva-Wiz</h1>
+			<Title title="Deriva-Wiz" />
 			<Header>
 				<TinyButton
 					Icon={QuestionMarkCircleIcon}
