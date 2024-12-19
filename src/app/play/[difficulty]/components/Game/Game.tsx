@@ -9,6 +9,7 @@ import { PlayableAudio, Scene } from "../../types";
 import TinyButton from "@/app/components/Header/TinyButton";
 import Header from "@/app/components/Header";
 import HeaderLabel from "@/app/components/Header/HeaderLabel";
+import { addStyles } from "react-mathquill";
 
 type GameProps = {
     questions: Function[],
@@ -34,6 +35,10 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answersLatex, setAnswersLatex] = useState<string[]>([]);
     const [skipping, setSkipping] = useState(false);
+
+    useEffect(() => {
+        addStyles();
+    }, []);
 
     useEffect(() => {
         try {

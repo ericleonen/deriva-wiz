@@ -31,7 +31,7 @@ export default function Countdown({ setScene, playAudio }: CountdownProps) {
     }, [value, playAudio]);
 
     return value > 0 ? (
-        <div className="bg-white h-[10rem] aspect-square rounded-full border-4 border-black flex items-center justify-center text-6xl font-bold">
+        <div className="bg-white h-[10rem] aspect-square !rounded-full brutal-box flex items-center justify-center text-6xl font-bold">
             {value}
         </div>
     ) : null;

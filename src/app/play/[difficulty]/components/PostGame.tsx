@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { Difficulty, PlayableAudio, Scene } from "../types"
-import { difficultyColors } from "../uiConfig";
-import { capitalize } from "../utils";
+import { capitalize } from "../../../utils";
 import { ArrowUturnLeftIcon, HomeIcon } from "@heroicons/react/16/solid";
 import TinyButton from "@/app/components/Header/TinyButton";
 import Header from "@/app/components/Header";
