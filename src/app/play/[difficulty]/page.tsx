@@ -1,16 +1,22 @@
 "use client"
 
 import QuestionGenerator from "@/lib/question-generator/QuestionsGenerator";
-import Game from "./components/Game";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Function from "@/lib/symbo-diff/Function";
 import { Difficulty, PlayableAudio, Scene } from "./types";
-import PreGame from "./components/PreGame";
 import Countdown from "./components/Countdown";
 import { addStyles } from "react-mathquill";
 import PostGame from "./components/PostGame";
 import Audio from "./components/Audio";
+import dynamic from "next/dynamic";
+
+const PreGame = dynamic(() => import("./components/PreGame"), {
+    ssr: false
+});
+const Game = dynamic(() => import("./components/Game"), {
+    ssr: false
+});
 
 export default function PlayPage() {
     const { difficulty } = useParams<{ difficulty: Difficulty }>();

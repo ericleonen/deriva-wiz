@@ -80,7 +80,7 @@ export default class QuestionGenerator {
             this.createLinearExpression(x, generate.linear.preset.inner.light),
             {
                 groups: generate.questions.functionGroups.intermediate.combination,
-                // @ts-expect-error
+                // @ts-expect-error reading JSON
                 typesRelativeLikelihoods: generate.questions.combinationRelativeLikelihoods.intermediate
             }
         )
@@ -102,7 +102,7 @@ export default class QuestionGenerator {
             this.createLinearExpression(x, generate.linear.preset.inner.light),
             {
                 groups: generate.questions.functionGroups.hard.combination,
-                // @ts-expect-error
+                // @ts-expect-error reading JSON
                 typesRelativeLikelihoods: generate.questions.combinationRelativeLikelihoods.hard
             }
         )
@@ -124,14 +124,14 @@ export default class QuestionGenerator {
                 !(x instanceof Addition) &&
                 !(x instanceof Subtraction)
             ) ? this.createInt({
-                // @ts-expect-error
+                // @ts-expect-error reading JSON
                 magRange: generate.linear.range.mulDiv,
                 neg: 0,
             }) : null;
         let divFactor = 
             uniform() < config.divFactor && !(x.hasFraction)
             ? this.createInt({
-                // @ts-expect-error
+                // @ts-expect-error reading JSON
                 magRange: generate.linear.range.mulDiv,
                 neg: 0,
                 prevent: mulFactor ? [(mulFactor as Integer).value] : undefined
@@ -154,7 +154,7 @@ export default class QuestionGenerator {
             !(x instanceof Addition) &&
             !(x instanceof Subtraction)
         ) ? this.createInt({
-            // @ts-expect-error
+            // @ts-expect-error reading JSON
             magRange: generate.linear.range.addSub,
             neg: 0
         }) : null;
@@ -271,7 +271,7 @@ export default class QuestionGenerator {
             const { expression: f } = this.createFunctionExpression(g, {
                 groups,
                 prevent: [
-                    // @ts-expect-error
+                    // @ts-expect-error reading JSON
                     ...(prevent.combination.betweenFunction[gCode]?.chain || []),
                     ...((g.hasFraction && prevent.combination?.chain.innerFraction) || [])
                 ]
@@ -294,7 +294,7 @@ export default class QuestionGenerator {
             const { expression: g } = this.createFunctionExpression(x2, {
                 groups,
                 prevent: [
-                    // @ts-expect-error
+                    // @ts-expect-error reading JSON
                     ...(prevent.combination.betweenFunction[fCode]?.mulDiv || []),
                     ...(prevent.combination?.mulDiv || []),
                     fCode

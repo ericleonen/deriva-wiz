@@ -48,7 +48,8 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
                 setAnswersLatex(prev => [...prev, currentAnswerLatex]);
                 setCurrentAnswerLatex("");
             }
-        } catch (err) {
+        } catch {
+            return;
             // console.log(currentAnswerLatex);
             // console.log(err)
         }

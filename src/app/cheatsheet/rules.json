@@ -85,7 +85,7 @@
         {
             "name": "Exponential",
             "function": "n^x",
-            "derivative": "n^x\\ln\\left(x\\right)"
+            "derivative": "n^x\\ln\\left(n\\right)"
         }, {
             "name": "Logarithm",
             "function": "\\log_{n}\\left(x\\right)",
