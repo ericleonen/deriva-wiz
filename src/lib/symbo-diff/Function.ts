@@ -1,6 +1,5 @@
 import { IS_EQUAL_NUM_SAMPLES, IS_EQUAL_TOLERANCE, IS_EQUAL_UPPER_BOUND } from "./config";
 import Constant from "./operands/Constant";
-import Division from "./operators/basic/Division";
 
 /**
  * A differentiable univariate function. 

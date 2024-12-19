@@ -76,7 +76,7 @@ function splitIntoSymbols(latex: string): string[] {
     }
 
     // Handle groups
-    let groupIndexInterval = [-1, -1];
+    const groupIndexInterval = [-1, -1];
     let openCount = 0;
     
     for (let index = 0; index < latex.length; index++) {

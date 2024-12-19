@@ -52,7 +52,7 @@ export default function PreGame({ difficulty, setScene }: PreGameProps) {
                     Enter your answers in the math input field just as you would type an expression into{" "}
                     <Link className={linkClassName} href="https://www.webassign.net/">WebAssign</Link>{" "}
                     or <Link className={linkClassName} href="https://www.desmos.com/calculator">Desmos</Link>.{" "}
-                    If you've never heard of either, you might want to play around with{" "}
+                    If you&apos;ve never heard of either, you might want to play around with{" "}
                     <Link className={linkClassName} href="http://mathquill.com/">Mathquill</Link>.<br /><br />
                     <span className="font-semibold">Note:</span> You can type a <StaticMathField>{"\\sqrt{}"}</StaticMathField> symbol by typing <code>sqrt</code>.
                 </p>

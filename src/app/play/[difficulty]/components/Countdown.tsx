@@ -19,7 +19,7 @@ export default function Countdown({ setScene, playAudio }: CountdownProps) {
         }, 1000);
 
         return () => clearTimeout(timeout);
-    }, [value, setValue]);
+    }, [value, setValue, setScene]);
 
     useEffect(() => {
 

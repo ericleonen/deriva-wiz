@@ -17,7 +17,8 @@ export default class Constant extends Function {
     }
 
     public eval(x: number): number {
-        return this.value;
+        if (Number.isFinite(x)) return this.value;
+        else throw new Error();
     }
 
     public get derivative(): Function {

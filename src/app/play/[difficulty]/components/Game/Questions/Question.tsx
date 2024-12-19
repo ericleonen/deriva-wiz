@@ -1,4 +1,5 @@
 import Function from "@/lib/symbo-diff/Function"
+import Image from "next/image"
 import { StaticMathField } from "react-mathquill"
 
 type QuestionProps = {
@@ -25,7 +26,14 @@ export default function Question({ question, questionIndexDist, answerLatex }: Q
                         <StaticMathField>
                             {answerLatex}
                         </StaticMathField>
-                        <img src="/checkmark.png" className="h-[32px] ml-2"/>
+                        <Image 
+                            src="/checkmark.png" 
+                            className="ml-2" 
+                            alt="checkmark"
+                            height={32}
+                            width={32}
+                            priority
+                        />
                     </div>
                 )
             }

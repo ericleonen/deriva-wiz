@@ -27,7 +27,7 @@ export default function CheatsheetPage() {
                                     href="/"
                                     className={smallButtonClassName}
                                     style={{
-                                        // @ts-ignore
+                                        // @ts-expect-error
                                         backgroundColor: difficultyColors[difficulty]
                                     }}
                                     title="Home"
@@ -37,7 +37,7 @@ export default function CheatsheetPage() {
                                 <h2
                                     className="flex-1 mx-3 text-xl font-bold w-full h-12 border-2 border-black shadow flex items-center justify-center"
                                     style={{
-                                        // @ts-ignore
+                                        // @ts-expect-error
                                         backgroundColor: difficultyColors[difficulty]
                                     }}
                                 >
@@ -47,7 +47,7 @@ export default function CheatsheetPage() {
                                     href={"/play/" + difficulty}
                                     className={smallButtonClassName}
                                     style={{
-                                        // @ts-ignore
+                                        // @ts-expect-error
                                         backgroundColor: difficultyColors[difficulty]
                                     }}
                                     title={`Play ${capitalize(difficulty)} Mode`}
@@ -57,7 +57,7 @@ export default function CheatsheetPage() {
                             </div>
                             <div className="bg-white border-2 border-black shadow mt-3 p-3 pb-3">
                                 {
-                                    // @ts-ignore
+                                    // @ts-expect-error
                                     rules[difficulty]?.map(rule => (
                                         <div className="flex items-center hover:bg-gray-200 p-3 rounded-sm" key={rule.name}>
                                             <span className="font-bold mr-1">{rule.name}:</span>

@@ -45,7 +45,7 @@ export default function Audio({ currentAudio, setCurrentAudio }: AudioProps) {
 
         setCurrentAudio(null);
         
-    }, [currentAudio]);
+    }, [currentAudio, setCurrentAudio]);
 
     return (
         <>

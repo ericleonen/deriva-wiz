@@ -50,7 +50,6 @@ export default class QuestionGenerator {
         let x: Function = new Variable();
 
         if (uniform() < generate.questions.easierQuestion) {
-            // @ts-ignore
             return this.createLinearExpression(x, generate.linear.preset.outer);
         }
 
@@ -58,7 +57,6 @@ export default class QuestionGenerator {
 
         x = this.createFunctionExpression(x, {
             groups: [
-                // @ts-ignore
                 ...generate.questions.functionGroups.easy,
                 ...extraFunctionGroups
             ],
@@ -82,7 +80,7 @@ export default class QuestionGenerator {
             this.createLinearExpression(x, generate.linear.preset.inner.light),
             {
                 groups: generate.questions.functionGroups.intermediate.combination,
-                // @ts-ignore
+                // @ts-expect-error
                 typesRelativeLikelihoods: generate.questions.combinationRelativeLikelihoods.intermediate
             }
         )
@@ -92,7 +90,6 @@ export default class QuestionGenerator {
 
     private createHardQuestion(): Function {
         if (uniform() < generate.questions.easierQuestion) {
-            // @ts-ignore
             return this.createEasyQuestion([
                 ...generate.questions.functionGroups.hard.easier
             ]);
@@ -104,9 +101,8 @@ export default class QuestionGenerator {
             this.createLinearExpression(x, generate.linear.preset.inner.light),
             this.createLinearExpression(x, generate.linear.preset.inner.light),
             {
-                // @ts-ignore
                 groups: generate.questions.functionGroups.hard.combination,
-                // @ts-ignore
+                // @ts-expect-error
                 typesRelativeLikelihoods: generate.questions.combinationRelativeLikelihoods.hard
             }
         )
@@ -128,14 +124,14 @@ export default class QuestionGenerator {
                 !(x instanceof Addition) &&
                 !(x instanceof Subtraction)
             ) ? this.createInt({
-                // @ts-ignore
+                // @ts-expect-error
                 magRange: generate.linear.range.mulDiv,
                 neg: 0,
             }) : null;
         let divFactor = 
             uniform() < config.divFactor && !(x.hasFraction)
             ? this.createInt({
-                // @ts-ignore
+                // @ts-expect-error
                 magRange: generate.linear.range.mulDiv,
                 neg: 0,
                 prevent: mulFactor ? [(mulFactor as Integer).value] : undefined
@@ -158,7 +154,7 @@ export default class QuestionGenerator {
             !(x instanceof Addition) &&
             !(x instanceof Subtraction)
         ) ? this.createInt({
-            // @ts-ignore
+            // @ts-expect-error
             magRange: generate.linear.range.addSub,
             neg: 0
         }) : null;
@@ -180,7 +176,6 @@ export default class QuestionGenerator {
     } {
         if (x.hasFraction) {
             config.prevent = [
-                // @ts-ignore
                 ...(prevent.combination?.chain.innerFraction || []),
                 ...(config.prevent || [])
             ];
@@ -276,9 +271,8 @@ export default class QuestionGenerator {
             const { expression: f } = this.createFunctionExpression(g, {
                 groups,
                 prevent: [
-                    // @ts-ignore
-                    ...(prevent.combination.betweenFunction[gCode]?.chain || []), 
-                    // @ts-ignore
+                    // @ts-expect-error
+                    ...(prevent.combination.betweenFunction[gCode]?.chain || []),
                     ...((g.hasFraction && prevent.combination?.chain.innerFraction) || [])
                 ]
             });
@@ -295,15 +289,13 @@ export default class QuestionGenerator {
         } else { // f(x) */÷ g(x)
             const { expression: f, functionCode: fCode } = this.createFunctionExpression(x1, {
                 groups,
-                // @ts-ignore
                 prevent: prevent.combination?.mulDiv || []
             });
             const { expression: g } = this.createFunctionExpression(x2, {
                 groups,
                 prevent: [
-                    // @ts-ignore
+                    // @ts-expect-error
                     ...(prevent.combination.betweenFunction[fCode]?.mulDiv || []),
-                    // @ts-ignore 
                     ...(prevent.combination?.mulDiv || []),
                     fCode
                 ]

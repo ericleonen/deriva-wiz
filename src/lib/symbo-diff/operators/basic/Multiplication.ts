@@ -1,5 +1,4 @@
 import Function from "../../Function";
-import Constant from "../../operands/Constant";
 import Integer from "../../operands/Integer";
 import Variable from "../../operands/Variable";
 import { parenthesize } from "../../utils";

@@ -49,10 +49,10 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
                 setCurrentAnswerLatex("");
             }
         } catch (err) {
-            console.log(currentAnswerLatex);
-            console.log(err)
+            // console.log(currentAnswerLatex);
+            // console.log(err)
         }
-    }, [currentAnswerLatex, setAnswersLatex, setCurrentQuestionIndex, playAudio]);
+    }, [currentAnswerLatex, setAnswersLatex, setCurrentQuestionIndex, playAudio, currentQuestionIndex, questions]);
 
     useEffect(() => {
         if (currentQuestionIndex === questions.length) {
@@ -61,7 +61,7 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
                 setScene("postgame");
             }, 250); 
         }
-    }, [currentQuestionIndex, setScene]);
+    }, [currentQuestionIndex, setScene, questions.length]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -69,7 +69,7 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
         }, 10);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [setGameMs]);
 
     useEffect(() => {
         if (!skipping) return;
