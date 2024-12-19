@@ -3,7 +3,7 @@ import { Difficulty, PlayableAudio, Scene } from "../types"
 import { difficultyColors } from "../uiConfig";
 import { capitalize } from "../utils";
 import { ArrowUturnLeftIcon, HomeIcon } from "@heroicons/react/16/solid";
-import TinyButton from "@/app/components/TinyButton";
+import TinyButton from "@/app/components/Header/TinyButton";
 
 type PostGameProps = {
     gameMs: number,

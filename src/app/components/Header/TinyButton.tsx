@@ -1,5 +1,5 @@
 import { ForwardRefExoticComponent, SVGProps } from "react"
-import { Difficulty } from "../types"
+import { Difficulty } from "@/app/types";
 import Link from "next/link";
 
 type TinyButtonProps = {

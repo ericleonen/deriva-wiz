@@ -6,7 +6,9 @@ import React, { useEffect, useState } from "react";
 import AnswerField from "./AnswerField";
 import Questions from "./Questions";
 import { PlayableAudio, Scene } from "../../types";
-import TinyButton from "@/app/components/TinyButton";
+import TinyButton from "@/app/components/Header/TinyButton";
+import Header from "@/app/components/Header";
+import HeaderLabel from "@/app/components/Header/HeaderLabel";
 
 type GameProps = {
     questions: Function[],
@@ -82,20 +84,15 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
 
     return (
         <>
-            <div className="z-20 absolute top-3 left-1/2 translate-x-[-50%] w-[30rem] flex">
+            <Header className="z-20 absolute top-3 left-1/2 translate-x-[-50%] !w-[30rem]">
                 <TinyButton
                     label="Quit"
                     href="/"
                 />
-                <p 
-                    className="font-semibold text-xl transition-colors mx-3 h-12 flex-1 flex justify-center items-center bg-white border-2 shadow border-black rounded-sm"
-                    style={ skipping ? {
-                        color: "#ef4444",
-                        fontWeight: "bold"
-                    } : {}}
-                >
-                    {formatGameMs(gameMs, skips)}
-                </p>
+                <HeaderLabel 
+                    label={formatGameMs(gameMs, skips)}
+                    className={`transition-colors ${skipping ? "!bg-hard" : ""}`}
+                />
                 <TinyButton 
                     label="Skip"
                     onClick={() => {
@@ -108,7 +105,7 @@ export default function Game({ questions, gameMs, setGameMs, setScene, playAudio
                     }}
                     difficulty="hard"
                 />
-            </div>
+            </Header>
             <Questions {...{questions, currentQuestionIndex, answersLatex}} />
             <AnswerField 
                 {...{currentAnswerLatex, setCurrentAnswerLatex}}
