@@ -1,7 +1,7 @@
 import { capitalize } from "./utils";
 
 // @ts-ignore
-export function generateMetadata({ params }) {
+export async function generateMetadata({ params }) {
     return {
         title: `Deriva-Wiz ${capitalize(params.difficulty)} Mode`
     };

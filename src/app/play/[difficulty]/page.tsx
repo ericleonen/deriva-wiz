@@ -12,8 +12,6 @@ import { addStyles } from "react-mathquill";
 import PostGame from "./components/PostGame";
 import Audio from "./components/Audio";
 
-if (typeof window !== "undefined") addStyles();
-
 export default function PlayPage() {
     const { difficulty } = useParams<{ difficulty: Difficulty }>();
     const [questions, setQuestions] = useState<Function[]>([]);
@@ -21,6 +19,10 @@ export default function PlayPage() {
     const [gameMs, setGameMs] = useState<number>(0);
     const [currentAudio, playAudio] = useState<PlayableAudio | null>(null);
     const [skips, setSkips] = useState(0);
+
+    useEffect(() => {
+        addStyles();
+    }, []);
 
     useEffect(() => {
         if (scene === "pregame" && difficulty && (questions.length === 0 || gameMs > 0)) {

@@ -4,17 +4,17 @@ import { addStyles, StaticMathField } from "react-mathquill";
 import { difficultyColors } from "../play/[difficulty]/uiConfig";
 import { capitalize } from "../play/[difficulty]/utils";
 import rules from "./rules.json";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { HomeIcon, PlayIcon } from "@heroicons/react/16/solid";
-
-if (typeof window !== "undefined") {
-    addStyles();
-}
 
 const smallButtonClassName = "h-12 w-12 rounded-sm bg-white border-2 border-black shadow flex items-center justify-center hover:!bg-amber-300 active:scale-95 active:!bg-amber-300";
 
 export default function CheatsheetPage() {
+    useEffect(() => {
+        addStyles();
+    }, []);
+
     return (
         <div className="w-full h-full overflow-scroll py-12">
             <div className="flex flex-col w-[30rem] mx-auto">
